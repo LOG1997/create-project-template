@@ -1,0 +1,37 @@
+{
+  "name": "vue3-vite-template",
+  "version": "0.0.1",  "private": false,
+
+  "description": "vite+vue3+ts模板",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LOG1997/create-vue3-vite-template.git"
+  },
+  "homepage": "https://github.com/LOG1997/create-vue3-vite-template#readme",
+  "scripts": {
+    "test": "node ./test.js",
+    "start": "node ./index.js"
+  },
+  "bin": {
+    "create-log-app": "./index.js"
+  },
+  "files":[
+    
+  ],
+  "keywords": [
+    "vite",
+    "vite ts vue3",
+    "脚手架"
+  ],
+  "author": "log997",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.4.1",
+    "download-git-repo": "^3.0.2",
+    "fs": "^0.0.1-security",
+    "ora": "^5.4.1",
+    "path": "^0.12.7"
+  }
+}
