@@ -3,7 +3,7 @@
 const ora = require("ora");
 // 字体
 const chalk = require("chalk");
-const { rmdirSync } = require("fs");
+const { rmSync } = require("fs");
 
 const downloadGitRepo = require("download-git-repo");
 // 命令行交互
@@ -14,14 +14,14 @@ const program = new Command();
 
 // 可下载的模板
 const repositoryMap = {
-  basic: "useVue3",
+  basic: "v-wave",
   admin: "vue3-demo-admin",
   lib: "vue-next-lib-template",
 };
 
 function download(url, directory) {
   return new Promise((resolve, reject) => {
-    rmdirSync(directory, { recursive: true, force: true });
+    rmSync(directory, { recursive: true, force: true });
     downloadGitRepo(`direct:${url}`, directory, { clone: true }, (err) => {
       if (err) return reject(err);
       resolve();
@@ -56,7 +56,7 @@ program
       ? repositoryMap[options.template] || "useVue3"
       : "useVue3";
     spinner.color = "green";
-    download(`https://github.com/LOG1997/${repository}.git`, directory)
+    download(`https://github.com/justintaddei/${repository}.git`, directory)
       .then(() => {
         end = Date.now();
         spinner.stop();
