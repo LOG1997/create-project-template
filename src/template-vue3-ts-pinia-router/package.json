@@ -1,0 +1,35 @@
+{
+  "name": "template-vue3-ts-pure",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix"
+  },
+  "dependencies": {
+    "pinia": "^2.0.23",
+    "svg-sprite-loader": "^6.0.11",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "eslint": "^8.25.0",
+    "eslint-plugin-vue": "^9.6.0",
+    "fast-glob": "^3.2.12",
+    "husky": "^8.0.1",
+    "path": "^0.12.7",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue-tsc": "^0.40.4"
+  }
+}
