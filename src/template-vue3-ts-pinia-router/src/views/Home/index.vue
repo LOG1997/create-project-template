@@ -1,7 +1,23 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+import { ref } from "vue";
 import HelloWorld from "../../components/HelloWorld.vue";
+import useStore from "@/store/index";
+import { useRouter } from "vue-router";
+import { IUser } from "@/types/user";
+const store = useStore();
+const router = useRouter();
+store.user.setUserList();
+// eslint-disable-next-line no-undef
+let user = ref<IUser[]>([]);
+const getUser = () => {
+  user.value = store.user.getUserList;
+};
+const skip = (url: string) => {
+  router.push({
+    path: url,
+    query: { id: 1 },
+  });
+};
 </script>
 
 <template>
@@ -14,6 +30,11 @@ import HelloWorld from "../../components/HelloWorld.vue";
       <img src="../../assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
+  <button @click="getUser">pinia test</button>
+  <button @click="skip('about')">router test</button>
+  <div class="username" v-if="user.length">
+    <span v-for="item in user" :key="item.age">{{ item.name }}</span>
+  </div>
   <HelloWorld msg="Vite + Vue" />
 </template>
 
@@ -22,6 +43,7 @@ import HelloWorld from "../../components/HelloWorld.vue";
   height: 6em;
   padding: 1.5em;
   will-change: filter;
+  z-index: 0;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);

@@ -26,12 +26,22 @@ a:hover {
 }
 
 body {
+  --bgColor: #f3f3f3;
   margin: 0;
   display: flex;
   width: 100%;
   /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f3f3f3;
+  color: #333333;
+}
+
+.dark body {
+  --bgColor: #333333;
+  background-color: #242424;
+  color: #646cff;
+  /* overflow-y: hidden; */
 }
 
 h1 {
@@ -49,6 +59,11 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+
+.dark button {
+  background-color: #f3f3f3;
+  color: #333333;
 }
 
 button:hover {
