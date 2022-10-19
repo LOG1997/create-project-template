@@ -2,3 +2,4 @@ node_modules
 /src/template-vue3-ts-pure/node_modules
 /src/template-vue3-ts-pinia-router/node_modules
 dist
+.vscode

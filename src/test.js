@@ -102,15 +102,12 @@ const renameFiles = {
 
 async function init() {
   let targetDir = formatTargetDir(argv._[0]);
-  console.log("😉targetDir:", targetDir);
   let template = argv.template || argv.t;
-  console.log("😉template:", template);
   // 默认显示项目名称
   const defaultTargetDir = "vue-app";
   // 用户输入项目名称
-  const getProjectName = () => {
+  const getProjectName = () =>
     targetDir === "." ? path.basename(path.resolve()) : targetDir;
-  };
 
   let result = {};
   try {
@@ -132,16 +129,9 @@ async function init() {
         },
         //检测到已有目录，是否覆盖此目录
         {
-          type: () => {
-            // 检测目录是否存在
+          type: () =>
+            !fs.existsSync(targetDir) || isEmpty(targetDir) ? null : "confirm",
 
-            console.log(
-              "😉fs.existsSync(targetDir):",
-              fs.existsSync(targetDir),
-              isEmpty(targetDir)
-            );
-            !fs.existsSync(targetDir) || isEmpty(targetDir) ? null : "confirm";
-          },
           name: "overwrite",
           message: () => {
             return targetDir === "."
@@ -239,6 +229,7 @@ async function init() {
 
   // user choice associated with prompts
   const { framework, overwrite, packageName, variant } = result;
+  console.log("😉cwd:", cwd);
   // 新建目录的根目录
   const root = path.join(cwd, targetDir);
   // 重写目录则把指定目录清空，否则创建目录
@@ -250,7 +241,6 @@ async function init() {
 
   // determine template
   template = variant.name || framework || template;
-  console.log("😉template:", template);
   console.log(`\nScaffolding project in ${root}...`);
 
   // 模板文件夹
