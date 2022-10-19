@@ -6,6 +6,7 @@ import { useRouter } from "vue-router";
 import { IUser } from "@/types/user";
 const store = useStore();
 const router = useRouter();
+
 store.user.setUserList();
 // eslint-disable-next-line no-undef
 let user = ref<IUser[]>([]);

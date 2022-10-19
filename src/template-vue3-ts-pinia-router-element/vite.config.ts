@@ -1,9 +1,12 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-
-import { resolve } from "path";
-
+import path from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import Icons from "unplugin-icons/vite";
+import IconsResolver from "unplugin-icons/resolver";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
@@ -12,9 +15,32 @@ export default defineConfig(({ mode }) => {
       vue(),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
-        iconDirs: [resolve(process.cwd(), "src/icons")],
+        iconDirs: [path.resolve(process.cwd(), "src/icons")],
         // 指定symbolId格式
         symbolId: "icon-[dir]-[name]",
+      }),
+      AutoImport({
+        resolvers: [
+          ElementPlusResolver(), // Auto import icon components
+          // 自动导入图标组件
+          IconsResolver({
+            prefix: "Icon",
+          }),
+        ],
+        dts: path.resolve(path.resolve(__dirname, "src"), "auto-imports.d.ts"),
+      }),
+      Components({
+        resolvers: [
+          ElementPlusResolver(), // Auto register icon components
+          // 自动注册图标组件
+          IconsResolver({
+            enabledCollections: ["ep"],
+          }),
+        ],
+        dts: path.resolve(path.resolve(__dirname, "src"), "components.d.ts"),
+      }),
+      Icons({
+        autoInstall: true,
       }),
     ],
     css: {
@@ -39,7 +65,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        "@": resolve(__dirname, "./src"),
+        "@": path.resolve(__dirname, "./src"),
       },
     },
   };
