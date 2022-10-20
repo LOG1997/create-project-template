@@ -1,6 +1,6 @@
 {
   "name": "vue3-vite-template",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "vite+vue3+ts模板",
   "main": "index.js",
