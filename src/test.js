@@ -13,7 +13,6 @@ import {
   reset,
   yellow,
 } from "kolorist";
-import { format } from "path";
 
 const argv = minimist(process.argv.slice(2), { string: ["_"] });
 const cwd = process.cwd();
@@ -43,11 +42,6 @@ const FRAMEWORKS = [
             display: "windicss",
             color: magenta,
           },
-          {
-            name: "axios",
-            display: "axios",
-            color: cyan,
-          },
         ],
       },
     ],
@@ -67,24 +61,17 @@ const FRAMEWORKS = [
         color: blue,
         modules: [
           {
-            name: "element-plus",
+            name: "element",
+            version: "^2.2.18",
             display: "element-plus",
             color: blue,
           },
           {
             name: "windicss",
+            version: "^3.5.6",
             display: "windicss",
+            dev: true,
             color: magenta,
-          },
-          {
-            name: "axios",
-            display: "axios",
-            color: cyan,
-          },
-          {
-            name: "vueuse",
-            display: "vueuse",
-            color: lightRed,
           },
         ],
       },
@@ -205,7 +192,6 @@ async function init() {
           message: reset("select modules:"),
           initial: 0,
           choices: (variant) => {
-            console.log("😉variant:", variant);
             return variant.modules.map((module) => {
               const moduleColor = module.color;
               return {
@@ -228,8 +214,7 @@ async function init() {
   }
 
   // user choice associated with prompts
-  const { framework, overwrite, packageName, variant } = result;
-  console.log("😉cwd:", cwd);
+  const { framework, overwrite, packageName, variant, module } = result;
   // 新建目录的根目录
   const root = path.join(cwd, targetDir);
   // 重写目录则把指定目录清空，否则创建目录
@@ -243,14 +228,14 @@ async function init() {
   template = variant.name || framework || template;
   console.log(`\nScaffolding project in ${root}...`);
 
+  const moduleDir = module.join("-");
   // 模板文件夹
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
     "..",
-    `template-${template}`
+    `template-${template}-${moduleDir}`
   );
 
-  console.log("😉templateDir:", templateDir);
   const write = (file, content) => {
     const targetPath = renameFiles[file]
       ? path.join(root, renameFiles[file])
@@ -269,7 +254,15 @@ async function init() {
   const pkg = JSON.parse(
     fs.readFileSync(path.join(templateDir, `package.json`), "utf-8")
   );
+
   pkg.name = packageName || getProjectName();
+  // module.forEach((item) => {
+  //   if (!item.dev) {
+  //     pkg.dependencies[item.name] = item.version;
+  //   } else {
+  //     pkg.devDependencies[item.name] = item.version;
+  //   }
+  // });
   write("package.json", JSON.stringify(pkg, null, 2));
   const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
   const pkgManager = pkgInfo ? pkgInfo.name : "npm";

@@ -15,7 +15,7 @@
     "start": "node src/index.js"
   },
   "bin": {
-    "create-my-cli": "src/index.js"
+    "create-log-cli": "src/index.js"
   },
   "files": [
     "/src",

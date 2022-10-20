@@ -22,7 +22,7 @@ const skip = (url: string) => {
 
 <template>
   <div>
-    <svg-icon :name="'menu'" class="svgMenu cursor-pointer"></svg-icon>
+    <svg-icon :name="'menu'" class="svgMenu"></svg-icon>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
