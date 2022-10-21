@@ -1,6 +1,6 @@
 {
   "name": "create-log-cli",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "description": "vite+vue3+ts模板",
   "main": "index.js",

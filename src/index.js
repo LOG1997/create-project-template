@@ -90,7 +90,6 @@ const renameFiles = {
 async function init() {
   let targetDir = formatTargetDir(argv._[0]);
   let template = argv.template || argv.t;
-  console.log("😉template:", template);
   // 默认显示项目名称
   const defaultTargetDir = "vue-app";
   // 用户输入项目名称
@@ -183,7 +182,7 @@ async function init() {
             return framework.variants.map((variant) => {
               const variantColor = variant.color;
               if (framework.name == "vue2") {
-                throw new Error(red("✖") + " vue 2.x is not supported");
+                throw new Error(red("×") + " vue 2.x is not supported");
               }
               return {
                 title: variantColor(variant.name),
@@ -213,7 +212,7 @@ async function init() {
       ],
       {
         onCancel: () => {
-          throw new Error(red("✖") + " Operation cancelled");
+          throw new Error(red("×") + " Operation cancelled");
         },
       }
     );
@@ -278,7 +277,7 @@ async function init() {
 
   console.log("\nDone. Now run:\n");
   if (root != cwd) {
-    console.log(`  (cd ${path.relative(cwd, root)}`);
+    console.log(`  cd ${red(path.relative(cwd, root))}`);
   }
   switch (pkgManager) {
     case "yarn":
@@ -290,7 +289,7 @@ async function init() {
       console.log(`  ${pkgManager} run dev`);
       break;
   }
-  console.log("done");
+  console.log(`   ${green("√")}` + " Done");
 }
 
 init().catch((e) => {
