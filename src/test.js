@@ -90,6 +90,7 @@ const renameFiles = {
 async function init() {
   let targetDir = formatTargetDir(argv._[0]);
   let template = argv.template || argv.t;
+  console.log("😉template:", template);
   // 默认显示项目名称
   const defaultTargetDir = "vue-app";
   // 用户输入项目名称
@@ -171,11 +172,19 @@ async function init() {
             return framework && framework.variants ? "select" : null;
           },
           name: "variant",
-          message: reset("select a variant:"),
           initial: 0,
+          message: (framework) =>
+            framework.name == "vue2"
+              ? reset(
+                  `"${framework.name}" is not a valid template,Please restart choose:`
+                )
+              : reset("select a variant:"),
           choices: (framework) => {
             return framework.variants.map((variant) => {
               const variantColor = variant.color;
+              if (framework.name == "vue2") {
+                throw new Error(red("✖") + " vue 2.x is not supported");
+              }
               return {
                 title: variantColor(variant.name),
                 value: variant,
