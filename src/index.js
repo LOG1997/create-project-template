@@ -1,4 +1,4 @@
-import fs, { copyFile } from "node:fs";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import minimist from "minimist";
@@ -77,7 +77,6 @@ const FRAMEWORKS = [
       },
     ],
   },
-
   {
     name: "node",
     color: cyan,
@@ -252,13 +251,13 @@ async function init() {
   // determine template
   template = variant.name || framework || template;
   console.log(`\nScaffolding project in ${root}...`);
+  const templateComName = module ? `${template}-${module.join("-")}` : template;
 
-  const moduleDir = module.join("-");
   // 模板文件夹
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
     "..",
-    `template-${template}-${moduleDir}`
+    `template-${templateComName}`
   );
 
   const write = (file, content) => {
