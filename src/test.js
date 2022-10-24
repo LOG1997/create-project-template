@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs, { copyFile } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
