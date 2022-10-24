@@ -19,34 +19,6 @@ const cwd = process.cwd();
 // 定义选项
 const FRAMEWORKS = [
   {
-    name: "vue2",
-    color: blue,
-    variants: [
-      {
-        name: "vue2-pure",
-        display: "vue2-pure",
-        color: yellow,
-      },
-      {
-        name: "vue2-router-vuex",
-        display: "vue2-router-vuex",
-        color: blue,
-        modules: [
-          {
-            name: "element-ui",
-            display: "element-ui",
-            color: blue,
-          },
-          {
-            name: "windicss",
-            display: "windicss",
-            color: magenta,
-          },
-        ],
-      },
-    ],
-  },
-  {
     name: "vue3",
     color: green,
     variants: [
@@ -74,6 +46,51 @@ const FRAMEWORKS = [
             color: magenta,
           },
         ],
+      },
+    ],
+  },
+  {
+    name: "vue2",
+    color: blue,
+    variants: [
+      {
+        name: "vue2-pure",
+        display: "vue2-pure",
+        color: yellow,
+      },
+      {
+        name: "vue2-router-vuex",
+        display: "vue2-router-vuex",
+        color: blue,
+        modules: [
+          {
+            name: "element-ui",
+            display: "element-ui",
+            color: blue,
+          },
+          {
+            name: "windicss",
+            display: "windicss",
+            color: magenta,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    name: "node",
+    color: cyan,
+    variants: [
+      {
+        name: "node-pure",
+        display: "node-pure",
+        color: yellow,
+      },
+      {
+        name: "node-mysql",
+        display: "node-mysql",
+        color: lightRed,
       },
     ],
   },
