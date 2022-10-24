@@ -95,6 +95,17 @@ const FRAMEWORKS = [
       },
     ],
   },
+  {
+    name: "wxapp",
+    color: green,
+    variants: [
+      {
+        name: "wxapp-pure",
+        display: "微信小程序",
+        color: yellow,
+      },
+    ],
+  },
 ];
 
 const TEMPLATES = FRAMEWORKS.map(
