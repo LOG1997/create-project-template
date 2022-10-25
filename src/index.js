@@ -264,7 +264,11 @@ async function init() {
   // determine template
   template = variant.name || framework || template;
   console.log(`\nScaffolding project in ${root}...`);
-  const templateComName = module ? `${template}-${module.join("-")}` : template;
+  const isModule = module && module.length > 0;
+  const templateComName = isModule
+    ? `${template}-${module.join("-")}`
+    : template;
+  console.log("😉templateComName:", templateComName);
 
   // 模板文件夹
   const templateDir = path.resolve(
