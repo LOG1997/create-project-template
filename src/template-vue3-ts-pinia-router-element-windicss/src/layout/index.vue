@@ -10,7 +10,7 @@ import Footer from "./Footer/index.vue";
     >
       <Header></Header>
     </header>
-    <main class="main-container w-screen box-content h-[calc(100vh-10rem)]">
+    <main class="main-container w-screen box-content min-h-[calc(100vh-10rem)]">
       <router-view></router-view>
     </main>
     <footer class="footer-container w-screen">
