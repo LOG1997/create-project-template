@@ -1,16 +1,26 @@
 {
-  "name": "vue3-vite-template",
-  "version": "0.0.1",  "private": false,
-
-  "description": "vite+vue3+ts模板",
+  "name": "create-log-cli",
+  "version": "0.0.11",
+  "private": false,
+  "description": "vue3 react",
   "main": "index.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LOG1997/create-vue3-vite-template.git"
+  },
+  "homepage": "https://github.com/LOG1997/create-vue3-vite-template#readme",
   "scripts": {
-    "test": "node ./test.js",
-    "start": "node ./index.js"
+    "test": "node src/test.js",
+    "start": "node src/index.js"
   },
   "bin": {
-    "create-log-app": "./index.js"
+    "create-log-cli": "src/index.js"
   },
+  "files": [
+    "/src",
+    "README.md"
+  ],
   "keywords": [
     "vite",
     "vite ts vue3",
@@ -19,11 +29,10 @@
   "author": "log997",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^9.4.1",
-    "download-git-repo": "^3.0.2",
     "fs": "^0.0.1-security",
-    "ora": "^5.4.1",
-    "path": "^0.12.7"
+    "kolorist": "^1.6.0",
+    "minimist": "^1.2.7",
+    "path": "^0.12.7",
+    "prompts": "^2.4.2"
   }
 }
