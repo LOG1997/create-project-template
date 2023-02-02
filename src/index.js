@@ -52,6 +52,22 @@ const FRAMEWORKS = [
     ],
   },
   {
+    name: "react",
+    color: blue,
+    variants: [
+      {
+        name: "react-ts-pure",
+        display: "react-ts-pure",
+        color: yellow,
+      },
+      {
+        name: "react-ts-redux-router",
+        display: "react-ts-redux-router",
+        color: blue,
+      },
+    ],
+  },
+  {
     name: "vue2",
     color: blue,
     variants: [

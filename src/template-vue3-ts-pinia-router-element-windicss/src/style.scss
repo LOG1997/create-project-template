@@ -1,0 +1,11 @@
+@import "../src/style/theme/index.scss";
+// body {
+//     @include themeify {
+//         background-color: themed("theme-bg-color");
+//     }
+// }
+body [data-theme="default"] {
+    @include children_theme {
+        background-color: themed("theme-bg-color");
+    }
+}

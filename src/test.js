@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import fs, { copyFile } from "node:fs";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import minimist from "minimist";
@@ -20,34 +20,6 @@ const argv = minimist(process.argv.slice(2), { string: ["_"] });
 const cwd = process.cwd();
 // 定义选项
 const FRAMEWORKS = [
-  {
-    name: "vue2",
-    color: blue,
-    variants: [
-      {
-        name: "vue2-pure",
-        display: "vue2-pure",
-        color: yellow,
-      },
-      {
-        name: "vue2-router-vuex",
-        display: "vue2-router-vuex",
-        color: blue,
-        modules: [
-          {
-            name: "element-ui",
-            display: "element-ui",
-            color: blue,
-          },
-          {
-            name: "windicss",
-            display: "windicss",
-            color: magenta,
-          },
-        ],
-      },
-    ],
-  },
   {
     name: "vue3",
     color: green,
@@ -79,6 +51,77 @@ const FRAMEWORKS = [
       },
     ],
   },
+  {
+    name: "react",
+    color: blue,
+    variants: [
+      {
+        name: "react-ts-pure",
+        display: "react-ts-pure",
+        color: yellow,
+      },
+      {
+        name: "react-ts-redux-router",
+        display: "react-ts-redux-router",
+        color: blue,
+      },
+    ],
+  },
+  {
+    name: "vue2",
+    color: blue,
+    variants: [
+      {
+        name: "vue2-pure",
+        display: "vue2-pure",
+        color: yellow,
+      },
+      {
+        name: "vue2-router-vuex",
+        display: "vue2-router-vuex",
+        color: blue,
+        modules: [
+          {
+            name: "element-ui",
+            display: "element-ui",
+            color: blue,
+          },
+          {
+            name: "windicss",
+            display: "windicss",
+            color: magenta,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "node",
+    color: cyan,
+    variants: [
+      {
+        name: "node-pure",
+        display: "node-pure",
+        color: yellow,
+      },
+      {
+        name: "node-mysql",
+        display: "node-mysql",
+        color: lightRed,
+      },
+    ],
+  },
+  {
+    name: "wxapp",
+    color: green,
+    variants: [
+      {
+        name: "wxapp-pure",
+        display: "微信小程序",
+        color: yellow,
+      },
+    ],
+  },
 ];
 
 const TEMPLATES = FRAMEWORKS.map(
@@ -92,7 +135,6 @@ const renameFiles = {
 async function init() {
   let targetDir = formatTargetDir(argv._[0]);
   let template = argv.template || argv.t;
-  console.log("😉template:", template);
   // 默认显示项目名称
   const defaultTargetDir = "vue-app";
   // 用户输入项目名称
@@ -185,7 +227,7 @@ async function init() {
             return framework.variants.map((variant) => {
               const variantColor = variant.color;
               if (framework.name == "vue2") {
-                throw new Error(red("✖") + " vue 2.x is not supported");
+                throw new Error(red("×") + " vue 2.x is not supported");
               }
               return {
                 title: variantColor(variant.name),
@@ -215,7 +257,7 @@ async function init() {
       ],
       {
         onCancel: () => {
-          throw new Error(red("✖") + " Operation cancelled");
+          throw new Error(red("×") + " Operation cancelled");
         },
       }
     );
@@ -238,13 +280,17 @@ async function init() {
   // determine template
   template = variant.name || framework || template;
   console.log(`\nScaffolding project in ${root}...`);
+  const isModule = module && module.length > 0;
+  const templateComName = isModule
+    ? `${template}-${module.join("-")}`
+    : template;
+  console.log("😉templateComName:", templateComName);
 
-  const moduleDir = module.join("-");
   // 模板文件夹
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
     "..",
-    `template-${template}-${moduleDir}`
+    `template-${templateComName}`
   );
 
   const write = (file, content) => {
@@ -280,7 +326,7 @@ async function init() {
 
   console.log("\nDone. Now run:\n");
   if (root != cwd) {
-    console.log(`  (cd ${path.relative(cwd, root)}`);
+    console.log(`  cd ${red(path.relative(cwd, root))}`);
   }
   switch (pkgManager) {
     case "yarn":
@@ -292,7 +338,7 @@ async function init() {
       console.log(`  ${pkgManager} run dev`);
       break;
   }
-  console.log("done");
+  console.log(`   ${green("√")}` + " Done");
 }
 
 init().catch((e) => {
