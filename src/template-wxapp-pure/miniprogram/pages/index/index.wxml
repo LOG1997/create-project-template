@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<view class="container">
+  <van-button type="primary" bindtap="getBtn">主要按钮</van-button>
+  <van-cell-group>
+  <van-field
+    value="{{user}}"
+    label="用户名"
+    left-icon="contact"
+    disabled
+    border="{{ false }}"
+  />
+</van-cell-group>
+</view>

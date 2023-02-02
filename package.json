@@ -1,8 +1,8 @@
 {
-  "name": "vue3-vite-template",
-  "version": "0.0.2",
+  "name": "create-log-cli",
+  "version": "0.0.11",
   "private": false,
-  "description": "vite+vue3+ts模板",
+  "description": "vue3 react",
   "main": "index.js",
   "type": "module",
   "repository": {

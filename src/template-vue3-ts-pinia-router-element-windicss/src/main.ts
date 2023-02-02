@@ -1,5 +1,6 @@
 import { createApp } from "vue";
-import "./style.css";
+import "./css/style.css";
+// import "@/style/global.module.scss";
 import "virtual:windi.css";
 import App from "./App.vue";
 

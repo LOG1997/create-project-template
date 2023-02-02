@@ -48,13 +48,13 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/style/global.scss";',
+          additionalData: '@import "./src/style/global.module.scss";',
         },
       },
     },
     server: {
       host: "localhost",
-      port: 8080,
+      port: 6719,
       proxy: {
         "/api": {
           target: env.VITE_BASE_URL,

@@ -4,4 +4,6 @@
   <router-view></router-view>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import "@/style/global.module.scss";
+</style>
