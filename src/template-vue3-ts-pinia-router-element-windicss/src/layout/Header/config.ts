@@ -2,13 +2,13 @@ export const navList = {
   data: [
     {
       id: 0,
-      name: "指南",
-      url: "guide",
+      name: "首页",
+      url: "home",
     },
     {
       id: 1,
-      name: "文档",
-      url: "doc",
+      name: "项目",
+      url: "project",
     },
     {
       id: 2,

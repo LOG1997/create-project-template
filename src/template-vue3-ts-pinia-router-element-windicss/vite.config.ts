@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "./src/style/global.module.scss";',
+          additionalData: '@import "@/style/global.scss";',
         },
       },
     },
@@ -68,6 +68,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
+        "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
       },
     },
   };
