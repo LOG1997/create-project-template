@@ -19,9 +19,7 @@ export default function SiderMenu(props: any) {
         <Sider
             trigger={null} collapsible collapsed={props.collapsed}>
             <div className='icon-logo'>
-                <SvgIcon name="logo" iconStyle={{ width: "50px", height: "50px" }} />
-                {props.collapsed ? null :
-                    <h2>Hood</h2>}
+                <SvgIcon name="logo" iconStyle={{ width: "40px", height: "40px" }} />
             </div>
         </Sider>
     )

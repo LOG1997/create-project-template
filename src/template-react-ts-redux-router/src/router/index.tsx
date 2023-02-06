@@ -1,14 +1,21 @@
 
-import { useRoutes } from "react-router-dom";
 import React, { Suspense, lazy } from 'react';
+import { useRoutes } from "react-router-dom";
+import Loading from "@/components/Loading/inidex";
 // import Loading from "@/components/Skeleton";
 import Layout from "@/layouts";
+
 
 const routes = [
     {
         path: "/",
         component: Layout,
         children: [
+            {
+                path: "",
+                component: lazy(() => import('@/views/Home')),
+                auth: false,
+            },
             {
                 path: "/home",
                 component: lazy(() => import('@/views/Home')),
@@ -89,7 +96,7 @@ const generateRouter = (routers: any) => {
         if (item.children) {
             item.children = generateRouter(item.children);
         }
-        item.element = <Suspense fallback={<div>加载中</div>}>
+        item.element = <Suspense fallback={<Loading></Loading>}>
             <item.component />
         </Suspense>;
 
