@@ -1,121 +1,40 @@
 
 import React, { Suspense, lazy } from 'react';
-import { useRoutes } from "react-router-dom";
-import Loading from "@/components/Loading/inidex";
-// import Loading from "@/components/Skeleton";
-import Layout from "@/layouts";
-
-
+import { createBrowserRouter, Navigate, useRouteError, redirect } from 'react-router-dom';
+import Layout from '@/layouts';
+import { replaceComponent } from './utils/replaceComponent'
+import { routeGet } from 'virtual:routes-get';
 const routes = [
     {
         path: "/",
+        redirect: <Navigate to="/home" />,
+    },
+    {
         component: Layout,
         children: [
-            {
-                path: "",
-                component: lazy(() => import('@/views/Home')),
-                auth: false,
-            },
-            {
-                path: "/home",
-                component: lazy(() => import('@/views/Home')),
-                auth: false,
-            },
-            {
-                path: "/admin",
-                component: lazy(() => import('@/views/Admin/User')),
-                children: [
-                    {
-                        path: "/admin/user",
-                        component: lazy(() => import('@/views/Admin/User')),
-                        auth: false,
-                    },
-                    {
-                        path: "/admin/role",
-                        component: lazy(() => import('@/views/Admin/Role')),
-                        auth: false,
-                    },
-                    {
-                        path: "/admin/menu",
-                        component: lazy(() => import('@/views/Admin/Menu')),
-                        auth: false,
-                    },
-                ]
-
-            },
-            {
-                path: "/dashbord",
-                component: lazy(() => import('@/views/DashBord')),
-                auth: false,
-            },
-            {
-                path: "/data-show",
-                component: lazy(() => import('@/views/DataShow')),
-                auth: false,
-            },
-            {
-                path: "/form",
-                component: lazy(() => import('@/views/Form')),
-                auth: false,
-            },
-            {
-                path: "/manage",
-                component: lazy(() => import('@/views/Manage')),
-                auth: false,
-
-
-            },
-            {
-                path: "*",
-                component: lazy(() => import('@/views/Error')),
-                auth: false,
-
-            }
+            ...replaceComponent(routeGet)
         ]
     }
-
-
 ];
-const checkAuth = (routers: any, path: string) => {
-    for (const data of routers) {
-        if (data.path === path) {
-            return data;
-        }
-        if (
-            data.children
-        ) {
-            const res: unknown = checkAuth(data.children, path);
-            if (res) { return res; }
-        }
-    }
-    return null;
-};
-
-const generateRouter = (routers: any) => {
-    const rout = routers.map((item: any) => {
+// 生成路由
+const generateRoutes = (routes: any) => {
+    return routes.map((item: any) => {
         if (item.children) {
-            item.children = generateRouter(item.children);
+            generateRoutes(item.children);
         }
-        item.element = <Suspense fallback={<Loading></Loading>}>
-            <item.component />
-        </Suspense>;
+        item.redirect ? item.element = item.redirect :
+            item.element = <Suspense fallback={<div>加载中</div>}>
+                <item.component />
+            </Suspense>
 
         return item;
     });
+}
+// loader
 
-    // console.log('😋rout:', rout)
-    return rout;
-};
-// 生成路由
-const Router = () => {
-    const routerRes = useRoutes(generateRouter(routes));
-    // console.log('😊routerRes:', routerRes);
-    return routerRes;
-};
-const checkRouterAuth = (path: string) => {
-    let auth = null;
-    auth = checkAuth(routes, path);
-    return auth;
-};
 
-export { Router, checkRouterAuth };
+const routesRes = generateRoutes(routes)
+console.log('😎routesRes:', routesRes)
+const Router = createBrowserRouter(routesRes)
+
+export { Router };

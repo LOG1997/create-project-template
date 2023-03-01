@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigate, redirect } from "react-router-dom";
 import { Layout, theme } from 'antd';
 import { asyncGetUserinfo } from '@/reduce/modules/user';
+import { routerBeforeEach } from '@/router/RouterGuard';
 import HeaderContent from './HeaderContent';
 import '@/style/layout/index.scss'
 
 const { Content } = Layout;
-const LayoutContainer: React.FC = () => {
+const LayoutContainer = () => {
+
     const dispatch = useDispatch();
     dispatch(asyncGetUserinfo() as any)
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+
 
     return (
         <Layout className='layout'>
@@ -25,7 +25,6 @@ const LayoutContainer: React.FC = () => {
                         margin: '24px 16px',
                         // padding: 24,
                         minHeight: 280,
-                        background: colorBgContainer,
                         position: "relative"
                     }}
                 >

@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import viteEslint from "vite-plugin-eslint";
 import path from "path";
-
+import vitePluginRouteGet from 'vite-plugin-routes-get'
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 // https://vitejs.dev/config/
@@ -12,6 +12,7 @@ export default defineConfig({
     viteEslint({
       failOnError: false,
     }),
+    vitePluginRouteGet(),
     // * 使用 svg 图标
     createSvgIconsPlugin({
       iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
