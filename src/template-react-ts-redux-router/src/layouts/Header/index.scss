@@ -1,0 +1,9 @@
+#navbarScroll {
+}
+@media screen and (max-width: 768px) {
+    #navbarScroll {
+        .header-nav-item {
+            text-align: left;
+        }
+    }
+}

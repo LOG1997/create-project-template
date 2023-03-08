@@ -3,18 +3,35 @@ import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter, Navigate, useRouteError, redirect } from 'react-router-dom';
 import Layout from '@/layouts';
 import { replaceComponent } from './utils/replaceComponent'
-import { routeGet } from 'virtual:routes-get';
+// FIXME: build不成功，server模式可行
+// import { routeGet } from 'virtual:routes-get';
 const routes = [
     {
         path: "/",
+        // component: Layout,
         redirect: <Navigate to="/home" />,
     },
     {
         component: Layout,
         children: [
-            ...replaceComponent(routeGet)
+            // ...replaceComponent(routeGet),
+            {
+                path: "/home",
+                component: lazy(() => import('@/views/Home')),
+
+            },
+            {
+                path: "/admin",
+                component: lazy(() => import('@/views/Admin')),
+            },
+            {
+
+                path: "*",
+                component: lazy(() => import('@/views/Error')),
+            }
         ]
-    }
+    },
+
 ];
 // 生成路由
 const generateRoutes = (routes: any) => {

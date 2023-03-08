@@ -1,10 +1,20 @@
 import React from 'react'
+import SvgIcon from '@/components/SvgIcon'
+
+import './index.scss'
 export default function index() {
     return (
-        <div style={{ width: "100%", height: "100%" }}>
-            <h1 style={{ position: "absolute", padding: "60px 0 0 200px", color: "white", zIndex: "1", fontSize: "90px" }}>Welcome</h1>
-            <h1 style={{ position: "absolute", padding: "250px 0 0 200px", color: "white", zIndex: "1", fontSize: "30px" }}>My Dir</h1>
-            <img style={{ width: "100%", height: "100%", backgroundRepeat: "no-repeat", margin: 0, padding: 0, filter: "blur(2px)", zIndex: "-1000" }} src="https://w.wallhaven.cc/full/x6/wallhaven-x662v3.png" alt="" />
+        <div className='h-full'>
+            <div className='w-full h-full justify-center flex bg-dark-200'>
+                <div className='flex justify-center gap-10 mt-20'>
+                    <div className='logo-react cursor-pointer'>
+                        <SvgIcon name='react' iconStyle={{ width: 100, height: 100 }}></SvgIcon>
+                    </div>
+                    <div className='logo-vite cursor-pointer'>
+                        <SvgIcon name='vite' iconStyle={{ width: 100, height: 100 }}></SvgIcon>
+                    </div>
+                </div>
+            </div>
         </div >
     )
 }
