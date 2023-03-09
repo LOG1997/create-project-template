@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
@@ -117,6 +119,16 @@ export default defineConfig(({ mode }) => {
             }
           }
         }
+      }
+    },
+    // 使用这个必须在上面加/// <reference types="vitest" /> 不然会有类型报错
+    test: {
+      globals: true, // --> 0.8.1+  请修改成globals
+      environment: 'jsdom',
+      // include: ['**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      // passWithNoTests: true,
+      transformMode: {
+        web: [/\.[jt]sx$/]
       }
     }
   };
