@@ -1,7 +1,9 @@
-import { Spin } from "antd";
-import React from "react";
-import "./index.scss";
-import RefAutoComplete from "antd/es/auto-complete";
+import { Spin } from 'antd';
+import React from 'react';
+import './index.scss';
+import RefAutoComplete from 'antd/es/auto-complete';
+
+
 export default function Loading() {
     return (
         <div className="loading" >

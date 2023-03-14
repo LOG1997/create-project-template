@@ -1,9 +1,9 @@
 //counter_slice.ts
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialFullScreen = false;
 const settingSlice = createSlice({
-  name: "setting",
+  name: 'setting',
   //   初始值
   initialState: {
     setting: {

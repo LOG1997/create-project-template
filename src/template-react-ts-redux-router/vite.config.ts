@@ -1,17 +1,18 @@
-import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react";
-import viteEslint from "vite-plugin-eslint";
-import path from "path";
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import viteEslint from 'vite-plugin-eslint';
+import path from 'path';
 // import vitePluginRouteGet from 'vite-plugin-routes-get'
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-import { visualizer } from "rollup-plugin-visualizer";
-import viteCompression from "vite-plugin-compression";
-import WindiCSS from 'vite-plugin-windicss'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { visualizer } from 'rollup-plugin-visualizer';
+import viteCompression from 'vite-plugin-compression';
+import WindiCSS from 'vite-plugin-windicss';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
-  const chunkName = mode == 'prebuild' ? '[name]' : 'chunk'
-  return {
+  const chunkName = mode == 'prebuild' ? '[name]' : 'chunk';
+  
+return {
     plugins: [
       react(),
       WindiCSS(),
@@ -24,7 +25,7 @@ export default defineConfig(({ mode }) => {
       }),
       visualizer({
         emitFile: true,//是否被触摸
-        filename: "test.html",//生成分析网页文件名
+        filename: 'test.html',//生成分析网页文件名
         open: true,//在默认用户代理中打开生成的文件
         gzipSize: true,//从源代码中收集 gzip 大小并将其显示在图表中
         brotliSize: true,//从源代码中收集 brotli 大小并将其显示在图表中
@@ -34,8 +35,8 @@ export default defineConfig(({ mode }) => {
       }),
       // * 使用 svg 图标
       createSvgIconsPlugin({
-        iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
-        symbolId: "icon-[dir]-[name]",
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        symbolId: 'icon-[dir]-[name]',
       }),
     ],
     css: {
@@ -47,21 +48,21 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
-        "~": path.resolve(__dirname, "./src"),
+        '@': path.resolve(__dirname, './src'),
+        '~': path.resolve(__dirname, './src'),
       }, extensions: ['.js', '.tsx', '.json'],
     },
     server: {
       proxy: {
-        "/api": {
-          target: "http://127.0.0.1:4523/m1/2223235-0-default",
+        '/api': {
+          target: 'http://127.0.0.1:4523/m1/2223235-0-default',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },
     build: {
-      minify: "terser",
+      minify: 'terser',
       terserOptions: {
         compress: {
           //生产环境时移除console
@@ -75,20 +76,20 @@ export default defineConfig(({ mode }) => {
       sourcemap: false, // 这个生产环境一定要关闭，不然打包的产物会很大
       rollupOptions: {
         output: {
-          chunkFileNames: `js/${chunkName}-[hash].js`,  // 引入文件名的名称
-          entryFileNames: `js/${chunkName}-[hash].js`,  // 包的入口文件名称
+          chunkFileNames: `js/${chunkName}-[hash].js`, // 引入文件名的名称
+          entryFileNames: `js/${chunkName}-[hash].js`, // 包的入口文件名称
           assetFileNames: `[ext]/${chunkName}-[hash].[ext]`, // 资源文件像 字体，图片等
           manualChunks(id: any): string {
-            if (id.includes("node_modules")) {
+            if (id.includes('node_modules')) {
               return id
                 .toString()
-                .split("node_modules/")[1]
-                .split("/")[0]
+                .split('node_modules/')[1]
+                .split('/')[0]
                 .toString();
             }
           }
         }
       }
     }
-  }
+  };
 });

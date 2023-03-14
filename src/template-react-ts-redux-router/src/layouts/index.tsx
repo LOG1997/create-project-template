@@ -1,9 +1,9 @@
-import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import Header from './Header';
+import Footer from './Footer';
+import { Outlet } from 'react-router-dom';
 
-import './index.scss'
+import './index.scss';
 export default function Layout() {
     return (
         <div>
@@ -19,5 +19,5 @@ export default function Layout() {
                 <Footer></Footer>
             </div>
         </div>
-    )
+    );
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { footerList } from "./config";
+import { footerList } from './config';
 const skip = (url: string) => {
   window.open(url);
 };

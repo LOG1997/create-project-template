@@ -1,27 +1,28 @@
 //counter_slice.ts
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserInfo } from "@/api/user/user";
-import { IUserInfo } from "@/types/user";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getUserInfo } from '@/api/user/user';
+import { IUserInfo } from '@/types/user';
 // 异步函数
 export const asyncGetUserinfo = createAsyncThunk(
-  "userSlice/asyncGetUserinfo",
+  'userSlice/asyncGetUserinfo',
   async () => {
     const { data }: { data: IUserInfo } = await getUserInfo({});
-    return data;
+    
+return data;
   }
 );
 const initialUserinfo: IUserInfo = {
-  user_name: "",
-  user_id: "",
-  user_nickname: "",
-  user_avatar: "",
-  user_email: "",
-  user_phone: "",
-  user_role: "",
+  user_name: '',
+  user_id: '',
+  user_nickname: '',
+  user_avatar: '',
+  user_email: '',
+  user_phone: '',
+  user_role: '',
   user_status: false,
 };
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   //   初始值
   initialState: {
     userInfo: initialUserinfo,

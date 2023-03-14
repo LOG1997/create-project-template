@@ -7,7 +7,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "tsc && vite build",
     "build:pre": "tsc && vite build --mode prebuild",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ./src --ext .vue,.js,.ts,.jsx,.tsx --fix"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",

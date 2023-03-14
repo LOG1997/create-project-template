@@ -1,16 +1,16 @@
-import request from "@/api/request";
+import request from '@/api/request';
 
 export function getUserInfo(params: any) {
   return request({
-    url: "/user/userInfo",
-    method: "get",
+    url: '/user/userInfo',
+    method: 'get',
     params,
   });
 }
 export function getAdminUsers(params: any) {
   return request({
-    url: "/admin/users",
-    method: "get",
+    url: '/admin/users',
+    method: 'get',
     params,
   });
 }

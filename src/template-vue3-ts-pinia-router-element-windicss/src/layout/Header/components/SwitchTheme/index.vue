@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useTheme } from "@/hooks/useTheme";
+import { onMounted } from 'vue';
+import { useTheme } from '@/hooks/useTheme';
 const switchTheme = (command: string) => {
   const { setTheme } = useTheme();
   setTheme(command);

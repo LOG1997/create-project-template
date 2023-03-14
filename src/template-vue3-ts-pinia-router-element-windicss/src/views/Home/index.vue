@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import HelloWorld from "../../components/HelloWorld.vue";
-import useStore from "@/store/index";
-import { useRouter } from "vue-router";
-import { IUser } from "@/types/user";
-import Button from "@/components/Button/index.vue";
+import { ref } from 'vue';
+import HelloWorld from '../../components/HelloWorld.vue';
+import useStore from '@/store/index';
+import { useRouter } from 'vue-router';
+import { IUser } from '@/types/user';
+import Button from '@/components/Button/index.vue';
 
 const store = useStore();
 const router = useRouter();

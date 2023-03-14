@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { navList } from "./config";
-import SwitchTheme from "./components/SwitchTheme/index.vue";
+import { navList } from './config';
+import SwitchTheme from './components/SwitchTheme/index.vue';
 const skip = (url: string) => {
-  window.open(url, "_self");
+  window.open(url, '_self');
 };
 </script>
 

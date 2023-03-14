@@ -1,7 +1,7 @@
-import React from 'react'
-import SvgIcon from '@/components/SvgIcon'
+import React from 'react';
+import SvgIcon from '@/components/SvgIcon';
 
-import './index.scss'
+import './index.scss';
 export default function index() {
     return (
         <div className='h-full'>
@@ -16,5 +16,5 @@ export default function index() {
                 </div>
             </div>
         </div >
-    )
+    );
 }

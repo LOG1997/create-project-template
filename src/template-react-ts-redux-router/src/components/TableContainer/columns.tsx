@@ -1,6 +1,6 @@
-import React from "react";
-import { Space, Tag } from "antd";
-import { ITableConstant, ITableAction } from "@/types/table";
+import React from 'react';
+import { Space, Tag } from 'antd';
+import { ITableConstant, ITableAction } from '@/types/table';
 
 export const generateColumns = <T extends { id: string }>(constant: ITableConstant[]) => {
   return constant.map((item: ITableConstant) => {
@@ -24,20 +24,22 @@ export const generateColumns = <T extends { id: string }>(constant: ITableConsta
         width: item.width || 100,
         ellipsis: item.ellipsis || false,
         render: (tags: []) => {
-          if (!tags) return (<></>)
+          if (!tags) return (<></>);
           const tagElement = tags.map((tag: string) => {
             // *配置标签显示颜色
-            let color = tag.length > 4 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
+            let color = tag.length > 4 ? 'geekblue' : 'green';
+            if (tag === 'loser') {
+              color = 'volcano';
             }
-            return (
+            
+return (
               <Tag color={color} key={tag}>
                 {tag.toUpperCase()}
               </Tag>
             );
-          })
-          return tagElement
+          });
+          
+return tagElement;
         }
       };
     }
@@ -56,11 +58,11 @@ export const generateColumns = <T extends { id: string }>(constant: ITableConsta
               {item.actions?.map((action: ITableAction) => {
                 return (
                   <a key={action.title} onClick={() => action.func(record.id)}>{action.title}</a>
-                )
+                );
               })}
-            </Space>
-          return actionElement
-
+            </Space>;
+          
+return actionElement;
         }
       };
     }

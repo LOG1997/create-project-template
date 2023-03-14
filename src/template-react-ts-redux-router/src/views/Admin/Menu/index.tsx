@@ -1,12 +1,5 @@
-import React from 'react'
-
-
+import React from 'react';
 
 export default function MenuAdmin() {
-
-    return (
-        <div>
-            Menu
-        </div>
-    )
+  return <div>Menu</div>;
 }

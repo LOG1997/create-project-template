@@ -10,7 +10,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix"
+    "lint": "eslint ./src --ext .vue,.js,.ts,.jsx,.tsx --fix"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",

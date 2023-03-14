@@ -24,17 +24,17 @@
   </button>
 </template>
 <script lang="ts" setup>
-import { defineProps, PropType } from "vue";
-import { ButtonType, ButtonSize } from "./type";
-import { useButton } from "./use-button";
+import { defineProps, PropType } from 'vue';
+import { ButtonType, ButtonSize } from './type';
+import { useButton } from './use-button';
 const props = defineProps({
   size: {
     type: String as PropType<ButtonSize>,
-    default: "medium",
+    default: 'medium',
   },
   type: {
     type: String as PropType<ButtonType>,
-    default: "default",
+    default: 'default',
   },
   disabled: {
     type: Boolean,
@@ -49,7 +49,7 @@ const props = defineProps({
     default: false,
   },
 });
-const emits = defineEmits(["click"]);
+const emits = defineEmits(['click']);
 const { handleClick } = useButton(props, emits);
 </script>
 <style scoped lang="scss">

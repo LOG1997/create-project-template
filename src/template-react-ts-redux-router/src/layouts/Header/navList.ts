@@ -12,4 +12,4 @@ export const navList = [
         name: '文章',
         path: '/article'
     }
-]
+];
