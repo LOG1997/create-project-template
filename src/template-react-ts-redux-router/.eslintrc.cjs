@@ -17,5 +17,6 @@ module.exports = {
   plugins: ["react", "@typescript-eslint"],
   rules: {
     "no-console": 1,
+    complexity: ["warn", { max: 5 }],
   },
 };

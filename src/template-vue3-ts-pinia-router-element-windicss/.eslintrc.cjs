@@ -38,5 +38,6 @@ module.exports = {
     ],
     "no-console": "warn",
     "no-debugger": "warn",
+    complexity: ["warn", { max: 5 }],
   },
 };
