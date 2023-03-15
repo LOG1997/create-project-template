@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-import { useRouter } from "vue-router";
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
@@ -11,12 +11,12 @@ const skip = (url: string) => {
 };
 
 const formInline = reactive({
-  user: "",
-  region: "",
+  user: '',
+  region: '',
 });
 
 const onSubmit = () => {
-  console.log("submit!");
+  console.log('submit!');
 };
 </script>
 

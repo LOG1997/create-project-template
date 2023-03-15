@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { footerList } from "./config";
+import { footerList } from './config';
+const skip = (url: string) => {
+  window.open(url);
+};
 </script>
 <template>
   <div class="footer-container">
     <ul>
-      <li v-for="item in footerList.data" :key="item.id">
+      <li
+        v-for="item in footerList.data"
+        :key="item.id"
+        @click="skip(item.url)"
+      >
         <svg-icon :name="item.icon"></svg-icon>
         <p>{{ item.name }}</p>
       </li>

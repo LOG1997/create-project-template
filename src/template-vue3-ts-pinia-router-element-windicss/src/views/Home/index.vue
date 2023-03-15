@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import HelloWorld from "../../components/HelloWorld.vue";
-import useStore from "@/store/index";
-import { useRouter } from "vue-router";
-import { IUser } from "@/types/user";
+import { ref } from 'vue';
+import HelloWorld from '../../components/HelloWorld.vue';
+import useStore from '@/store/index';
+import { useRouter } from 'vue-router';
+import { IUser } from '@/types/user';
+import Button from '@/components/Button/index.vue';
+
 const store = useStore();
 const router = useRouter();
 
@@ -37,6 +39,7 @@ const skip = (url: string) => {
     <span v-for="item in user" :key="item.age">{{ item.name }}</span>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <Button type="primary">Button</Button>
 </template>
 
 <style scoped lang="scss">

@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
-import { IUser } from "@/types/user";
+import { defineStore } from 'pinia';
+import { IUser } from '@/types/user';
 
-export const useUserStore = defineStore("user", {
+export const useUserStore = defineStore('user', {
   state() {
     return {
       userList: [] as IUser[],
@@ -15,8 +15,8 @@ export const useUserStore = defineStore("user", {
   actions: {
     setUserList() {
       const resList: IUser[] = [
-        { name: "张三", age: 18 },
-        { name: "李四", age: 19 },
+        { name: '张三', age: 18 },
+        { name: '李四', age: 19 },
       ];
       this.userList = resList;
     },
@@ -27,7 +27,7 @@ export const useUserStore = defineStore("user", {
       {
         // 如果要存储在localStorage中
         // storage: localStorage,
-        paths: ["userList"],
+        paths: ['userList'],
       },
     ],
   },

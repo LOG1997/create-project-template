@@ -1,6 +1,6 @@
-import axios from "axios";
-import { getToken } from "@/utils/auth";
-axios.defaults.baseURL = "/api";
+import axios from 'axios';
+import { getToken } from '@/utils/auth';
+axios.defaults.baseURL = '/api';
 
 //设置超时
 axios.defaults.timeout = 3000;
@@ -10,9 +10,10 @@ axios.interceptors.request.use(
     // token
     const token = getToken();
     if (token) {
-      config.headers["token"] = token;
+      config.headers['token'] = token;
     }
-    return config;
+    
+return config;
   },
   (error) => {
     return Promise.reject(error);

@@ -1,0 +1,60 @@
+{
+  "name": "react-template",
+  "private": true,
+  "version": "0.0.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc && vite build",
+    "build:pre": "tsc && vite build --mode prebuild",
+    "preview": "vite preview",
+    "lint": "eslint ./src --ext .vue,.js,.ts,.jsx,.tsx --fix"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
+    "@types/react-transition-group": "^4.4.5",
+    "@vitejs/plugin-react": "^3.0.1",
+    "ahooks": "^3.7.5",
+    "antd": "^5.1.6",
+    "axios": "^1.2.6",
+    "bootstrap": "^5.2.3",
+    "qs": "^6.11.0",
+    "react": "^18.2.0",
+    "react-activation": "^0.12.2",
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.8.0",
+    "react-transition-group": "^4.4.5",
+    "redux": "^4.2.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "@vitejs/plugin-react-swc": "^3.0.1",
+    "eslint": "^8.33.0",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "rollup-plugin-visualizer": "^5.9.0",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.2.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.4",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-routes-get": "^0.0.5",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-windicss": "^1.8.10",
+    "windicss": "^3.5.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx,tsx,ts}": [
+      "npm run lint"
+    ]
+  }
+}

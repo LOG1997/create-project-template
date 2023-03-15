@@ -8,6 +8,8 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
+     // 单元测试的支持
+     "types": ["vitest/globals"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
