@@ -1,4 +1,4 @@
-import request from '@/api/request';
+import request from '@/api';
 export function getData(params: any) {
   return request({
     url: '/getData',
@@ -11,5 +11,5 @@ export function postData(data: any) {
     url: '/postData',
     method: 'post',
     data,
-  })
+  });
 }
