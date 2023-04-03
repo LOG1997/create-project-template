@@ -6,9 +6,20 @@ import { useRouter } from 'vue-router';
 import { IUser } from '@/types/user';
 import Button from '@/components/Button/index.vue';
 import { ElNotification } from 'element-plus';
+
+import { getData } from '@/api/main';
 const store = useStore();
 const router = useRouter();
-
+const data = ref<any>(null);
+const featchData = async () => {
+  const res = await getData({});
+  data.value = res;
+  console.log('😊data.value:', data.value);
+  ElNotification({
+    title: 'data',
+    message: 'data:' + data.value.name,
+  });
+};
 store.user.setUserList();
 // eslint-disable-next-line no-undef
 let user = ref<IUser[]>([]);
@@ -43,6 +54,7 @@ const skip = (url: string) => {
     <button class="h-12 px-3 rounded-lg" @click="skip('about')">
       router test
     </button>
+    <button class="h-12 px-3 rounded-lg" @click="featchData">fetch</button>
   </div>
   <HelloWorld
     class="mx-auto text-center flex flex-column items-center"

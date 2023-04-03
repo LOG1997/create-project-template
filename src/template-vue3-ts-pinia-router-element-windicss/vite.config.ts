@@ -83,7 +83,7 @@ export default defineConfig(({ mode }) => {
           // 是否跨域
           changeOrigin: true,
           // 路径重写
-          // rewrite: (path) => path.replace(/^\/api/, '')
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },

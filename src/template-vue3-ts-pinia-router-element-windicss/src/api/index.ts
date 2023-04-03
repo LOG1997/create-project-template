@@ -1,55 +1,61 @@
-import Request from './request';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
+class Request {
+  private instance: AxiosInstance;
 
-import type { RequestConfig } from './request';
+  constructor(config: AxiosRequestConfig) {
+    this.instance = axios.create({
+      baseURL: '/api',
+      timeout: 10000,
+      ...config,
+    });
 
-export interface YWZResponse<T> {
-  statusCode: number;
-  desc: string;
-  result: T;
-}
+    // 添加请求拦截器
+    this.instance.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        // 在发送请求之前做些什么
+        console.log('请求拦截器被触发');
 
-// 重写返回类型
-interface YWZRequestConfig<T, R> extends RequestConfig<YWZResponse<R>> {
-  data?: T;
-}
+        return config;
+      },
+      (error: any) => {
+        // 对请求错误做些什么
+        console.error('请求拦截器发生错误：', error);
 
-const request = new Request({
-  baseURL: import.meta.env.BASE_URL,
-  timeout: 1000 * 60 * 5,
-  interceptors: {
-    // 请求拦截器
-    requestInterceptors: (config) => config,
-    // 响应拦截器
-    responseInterceptors: (result: AxiosResponse) => {
-      return result;
-    },
-  },
-});
+        return Promise.reject(error);
+      }
+    );
 
-/**
- * @description: 函数的描述
- * @generic D 请求参数
- * @generic T 响应结构
- * @param {YWZRequestConfig} config 不管是GET还是POST请求都使用data
- * @returns {Promise}
- */
+    // 添加响应拦截器
+    this.instance.interceptors.response.use(
+      (response: AxiosResponse) => {
+        // 对响应数据做些什么
+        console.log('响应拦截器被触发');
+        const reponseData = response.data;
 
-const ywzRequest = <D = any, T = any>(config: YWZRequestConfig<D, T>) => {
-  const { method = 'GET' } = config;
-  if (method === 'get' || method === 'GET') {
-    config.params = config.data;
+        return reponseData;
+      },
+      (error: any) => {
+        // 对响应错误做些什么
+        console.error('响应拦截器发生错误：', error);
+
+        return Promise.reject(error);
+      }
+    );
   }
 
-  return request.request<YWZResponse<T>>(config);
-};
-// // 取消请求
-// export const cancelRequest = (url: string | string[]) => {
-//   return request.cancelRequest(url)
-// }
-// // 取消全部请求
-// export const cancelAllRequest = () => {
-//   return request.cancelAllRequest()
-// }
+  public async request<T>(config: AxiosRequestConfig): Promise<T> {
+    const response: AxiosResponse<T> = await this.instance.request(config);
 
-export default ywzRequest;
+    return response.data;
+  }
+}
+
+// 函数
+function request<T>(config: AxiosRequestConfig): Promise<T> {
+  const instance = new Request(config);
+
+  return instance.request(config);
+}
+
+export default request;
