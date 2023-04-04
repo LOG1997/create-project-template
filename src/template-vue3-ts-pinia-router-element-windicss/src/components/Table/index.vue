@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { PropType } from "vue";
-import { TableItemType } from "@/types/table";
+import type { PropType } from 'vue';
+import { TableItemType } from '@/types/table';
 const props = defineProps({
   tableHeader: {
     type: Array as PropType<TableItemType[]>,
@@ -31,17 +31,17 @@ const props = defineProps({
     default: 100,
   },
 });
-const emit = defineEmits(["handelSelect", "handlePagination"]);
+const emit = defineEmits(['handelSelect', 'handlePagination']);
 // 选择
 const handleSelectionChange = (val: []) => {
-  emit("handelSelect", val);
+  emit('handelSelect', val);
 };
 // 改变分页
 const handleSizeChange = (val: number) => {
-  emit("handlePagination", { pageSize: val, currentPage: props.currentPage });
+  emit('handlePagination', { pageSize: val, currentPage: props.currentPage });
 };
 const handleCurrentChange = (val: number) => {
-  emit("handlePagination", {
+  emit('handlePagination', {
     pageSize: props.pageSize,
     currentPage: val,
   });

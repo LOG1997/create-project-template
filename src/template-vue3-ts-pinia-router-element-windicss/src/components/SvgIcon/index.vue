@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed } from 'vue';
 const props = defineProps({
   prefix: {
     type: String,
-    default: "icon",
+    default: 'icon',
   },
   name: {
     type: String,
@@ -11,11 +11,11 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: "#242424",
+    default: '#242424',
   },
   size: {
     type: String,
-    default: "24px",
+    default: '24px',
   },
 });
 

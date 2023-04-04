@@ -1,4 +1,4 @@
-import { useUserStore } from "./user";
+import { useUserStore } from './user';
 
 export default function useStore() {
   return {
