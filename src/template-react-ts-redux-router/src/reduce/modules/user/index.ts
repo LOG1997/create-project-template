@@ -7,8 +7,8 @@ export const asyncGetUserinfo = createAsyncThunk(
   'userSlice/asyncGetUserinfo',
   async () => {
     const { data }: { data: IUserInfo } = await getUserInfo({});
-    
-return data;
+
+    return data;
   }
 );
 const initialUserinfo: IUserInfo = {
