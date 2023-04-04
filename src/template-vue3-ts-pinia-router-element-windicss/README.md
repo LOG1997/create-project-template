@@ -101,3 +101,5 @@ plugins[
 还需要在`vite.config.ts`文件中设置才可引用，具体见文件
 ### 🪔vite.config.ts
 配置了icons的引入、elemnet的按需引入和自动注册、element图标的使用、windicss的引入、符号别名的设置、server的设置。
+
+### 📦在.env文件中修改链接

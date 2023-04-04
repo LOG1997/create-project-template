@@ -1,58 +1,61 @@
-/**
- * 网络请求配置
- */
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
+class Request {
+  private instance: AxiosInstance;
 
-axios.defaults.timeout = 30000;
-axios.defaults.baseURL = '/api';
+  constructor(config: AxiosRequestConfig) {
+    this.instance = axios.create({
+      baseURL: '/api',
+      timeout: 10000,
+      ...config,
+    });
 
-/**
- * http request 拦截器
- */
-axios.interceptors.request.use(
-  (config) => {
-    // token
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = token;
-    }
-    
-return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+    // 添加请求拦截器
+    this.instance.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        // 在发送请求之前做些什么
+        console.log('请求拦截器被触发');
+
+        return config;
+      },
+      (error: any) => {
+        // 对请求错误做些什么
+        console.error('请求拦截器发生错误：', error);
+
+        return Promise.reject(error);
+      }
+    );
+
+    // 添加响应拦截器
+    this.instance.interceptors.response.use(
+      (response: AxiosResponse) => {
+        // 对响应数据做些什么
+        console.log('响应拦截器被触发');
+        const reponseData = response.data;
+
+        return reponseData;
+      },
+      (error: any) => {
+        // 对响应错误做些什么
+        console.error('响应拦截器发生错误：', error);
+
+        return Promise.reject(error);
+      }
+    );
   }
-);
 
-/**
- * http response 拦截器
- */
-axios.interceptors.response.use(
-  (response) => {
-    const res = response.data;
+  public async request<T>(config: AxiosRequestConfig): Promise<T> {
+    const response: AxiosResponse<T> = await this.instance.request(config);
 
-    switch (res.code * 1) {
-      case 10000:
-        return res;
-      case 10001:
-        console.log('10001');
-        break;
-      case 10002:
-        console.log('10002');
-        break;
-      default:
-        console.log('default');
-        
-return res;
-    }
-    
-return res;
-  },
-  (error) => {
-    console.log('请求出错：', error);
-    
-return Promise.reject(error);
+    return response.data;
   }
-);
+}
 
-export default axios;
+// 函数
+function request<T>(config: AxiosRequestConfig): Promise<T> {
+  const instance = new Request(config);
+
+  return instance.request(config);
+}
+
+export default request;

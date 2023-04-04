@@ -1,49 +1,61 @@
-import axios from 'axios';
-import { getToken } from '@/utils/auth';
-axios.defaults.baseURL = '/api';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
+class Request {
+  private instance: AxiosInstance;
 
-//设置超时
-axios.defaults.timeout = 3000;
-// 请求拦截
-axios.interceptors.request.use(
-  (config: any) => {
-    // token
-    const token = getToken();
-    if (token) {
-      config.headers['token'] = token;
-    }
-    
-return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+  constructor(config: AxiosRequestConfig) {
+    this.instance = axios.create({
+      baseURL: '/api',
+      timeout: 10000,
+      ...config,
+    });
+
+    // 添加请求拦截器
+    this.instance.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        // 在发送请求之前做些什么
+        console.log('请求拦截器被触发');
+
+        return config;
+      },
+      (error: any) => {
+        // 对请求错误做些什么
+        console.error('请求拦截器发生错误：', error);
+
+        return Promise.reject(error);
+      }
+    );
+
+    // 添加响应拦截器
+    this.instance.interceptors.response.use(
+      (response: AxiosResponse) => {
+        // 对响应数据做些什么
+        console.log('响应拦截器被触发');
+        const reponseData = response.data;
+
+        return reponseData;
+      },
+      (error: any) => {
+        // 对响应错误做些什么
+        console.error('响应拦截器发生错误：', error);
+
+        return Promise.reject(error);
+      }
+    );
   }
-);
 
-// 响应拦截
-axios.interceptors.response.use(
-  (response) => {
-    const res = response.data;
-    if (response.status == 200) {
-      // TODO:自定义拦截内容
-      // switch (+res.code) {
-      //   case 10000:
-      //     break;
-      //   case 10001:
-      //     goLogin();
-      //     break;
-      //   default:
-      //     console.log("default");
-      //     return Promise.reject(res);
-      // }
-      return Promise.resolve(response);
-    } else {
-      return Promise.resolve(response);
-    }
-  },
-  (error) => {
-    return Promise.reject(error);
+  public async request<T>(config: AxiosRequestConfig): Promise<T> {
+    const response: AxiosResponse<T> = await this.instance.request(config);
+
+    return response.data;
   }
-);
+}
 
-export default axios;
+// 函数
+function request<T>(config: AxiosRequestConfig): Promise<T> {
+  const instance = new Request(config);
+
+  return instance.request(config);
+}
+
+export default request;

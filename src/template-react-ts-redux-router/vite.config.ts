@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteEslint from 'vite-plugin-eslint';
@@ -11,8 +13,8 @@ import WindiCSS from 'vite-plugin-windicss';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
   const chunkName = mode == 'prebuild' ? '[name]' : 'chunk';
-  
-return {
+
+  return {
     plugins: [
       react(),
       WindiCSS(),
@@ -24,11 +26,11 @@ return {
         ext: '.gz',
       }),
       visualizer({
-        emitFile: true,//是否被触摸
-        filename: 'test.html',//生成分析网页文件名
-        open: true,//在默认用户代理中打开生成的文件
-        gzipSize: true,//从源代码中收集 gzip 大小并将其显示在图表中
-        brotliSize: true,//从源代码中收集 brotli 大小并将其显示在图表中
+        emitFile: true, //是否被触摸
+        filename: 'test.html', //生成分析网页文件名
+        open: true, //在默认用户代理中打开生成的文件
+        gzipSize: true, //从源代码中收集 gzip 大小并将其显示在图表中
+        brotliSize: true, //从源代码中收集 brotli 大小并将其显示在图表中
       }),
       viteEslint({
         failOnError: false,
@@ -50,12 +52,13 @@ return {
       alias: {
         '@': path.resolve(__dirname, './src'),
         '~': path.resolve(__dirname, './src'),
-      }, extensions: ['.js', '.tsx', '.json'],
+      },
+      extensions: ['.js', '.tsx', '.json'],
     },
     server: {
       proxy: {
         '/api': {
-          target: 'http://127.0.0.1:4523/m1/2223235-0-default',
+          target: 'http://127.0.0.1:4523/m1/1902803-0-default',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
@@ -87,9 +90,19 @@ return {
                 .split('/')[0]
                 .toString();
             }
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
+    // 使用这个必须在上面加/// <reference types="vitest" /> 不然会有类型报错
+    test: {
+      globals: true, // --> 0.8.1+  请修改成globals
+      environment: 'jsdom',
+      // include: ['**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      // passWithNoTests: true,
+      transformMode: {
+        web: [/\.[jt]sx$/],
+      },
+    },
   };
 });

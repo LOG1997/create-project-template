@@ -1,6 +1,6 @@
 {
   "name": "create-log-cli",
-  "version": "0.0.15",
+  "version": "0.0.16-0",
   "private": false,
   "description": "vue3 react",
   "main": "index.js",
@@ -12,7 +12,9 @@
   "homepage": "https://github.com/LOG1997/create-vue3-vite-template#readme",
   "scripts": {
     "test": "node src/test.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "dev:react": "cd ./src/template-react-ts-redux-router && npm run dev",
+    "dev:vue3": "cd ./src/template-vue3-ts-pinia-router-element-windicss && npm run dev"
   },
   "bin": {
     "create-log-cli": "src/index.js"
