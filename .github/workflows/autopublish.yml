@@ -1,4 +1,4 @@
-name: log-template
+name: log-utils
 on:
   push:
     branches:

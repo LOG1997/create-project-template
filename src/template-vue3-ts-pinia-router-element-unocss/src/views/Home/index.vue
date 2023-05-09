@@ -48,6 +48,7 @@ const skip = (url: string) => {
     <a href="https://vuejs.org/" target="_blank">
       <img src="../../assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
+    <div class="i-fluent:table-dismiss-24-filled w-50px h-50px"></div>
   </div>
   <div class="flex justify-center gap-6">
     <button class="h-12 px-3 rounded-lg" @click="getUser">pinia test</button>
