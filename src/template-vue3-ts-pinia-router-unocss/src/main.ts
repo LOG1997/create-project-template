@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
-import "virtual:windi.css";
+import 'virtual:uno.css'
 const app = createApp(App);
 // 全局svg组件
 import "virtual:svg-icons-register";

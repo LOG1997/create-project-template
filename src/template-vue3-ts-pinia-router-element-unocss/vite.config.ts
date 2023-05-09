@@ -10,9 +10,10 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import ElementPlus from 'unplugin-element-plus/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
-import WindiCSS from 'vite-plugin-windicss';
+import UnoCSS from 'unocss/vite'
 import { visualizer } from 'rollup-plugin-visualizer';
 import viteCompression from 'vite-plugin-compression';
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
@@ -36,7 +37,8 @@ export default defineConfig(({ mode }) => {
         gzipSize: true, //从源代码中收集 gzip 大小并将其显示在图表中
         brotliSize: true, //从源代码中收集 brotli 大小并将其显示在图表中
       }),
-      WindiCSS(),
+      UnoCSS(),
+      
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
         iconDirs: [path.resolve(process.cwd(), 'src/icons')],
@@ -92,7 +94,6 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src'),
         '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
       },
-      extensions: ['.js', '.vue', '.json'],
     },
     build: {
       minify: 'terser',

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import minimist from "minimist";
-import prompts from "prompts";
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import minimist from 'minimist';
+import prompts from 'prompts';
 import {
   blue,
   cyan,
@@ -14,36 +14,36 @@ import {
   red,
   reset,
   yellow,
-} from "kolorist";
+} from 'kolorist';
 
-const argv = minimist(process.argv.slice(2), { string: ["_"] });
+const argv = minimist(process.argv.slice(2), { string: ['_'] });
 const cwd = process.cwd();
 // 定义选项
 const FRAMEWORKS = [
   {
-    name: "vue3",
+    name: 'vue3',
     color: green,
     variants: [
       {
-        name: "vue3-ts-pure",
-        display: "vue3-ts-pure",
+        name: 'vue3-ts-pure',
+        display: 'vue3-ts-pure',
         color: yellow,
       },
       {
-        name: "vue3-ts-pinia-router",
-        display: "vue3-ts-pinia-router",
+        name: 'vue3-ts-pinia-router',
+        display: 'vue3-ts-pinia-router',
         color: blue,
         modules: [
           {
-            name: "element",
-            version: "^2.2.18",
-            display: "element-plus",
+            name: 'element',
+            version: '^2.2.18',
+            display: 'element-plus',
             color: blue,
           },
           {
-            name: "windicss",
-            version: "^3.5.6",
-            display: "windicss",
+            name: 'unocss',
+            version: '^3.5.6',
+            display: 'unocss',
             dev: true,
             color: magenta,
           },
@@ -52,43 +52,43 @@ const FRAMEWORKS = [
     ],
   },
   {
-    name: "react",
+    name: 'react',
     color: blue,
     variants: [
       {
-        name: "react-ts-pure",
-        display: "react-ts-pure",
+        name: 'react-ts-pure',
+        display: 'react-ts-pure',
         color: yellow,
       },
       {
-        name: "react-ts-redux-router",
-        display: "react-ts-redux-router",
+        name: 'react-ts-redux-router',
+        display: 'react-ts-redux-router',
         color: blue,
       },
     ],
   },
   {
-    name: "vue2",
+    name: 'vue2',
     color: blue,
     variants: [
       {
-        name: "vue2-pure",
-        display: "vue2-pure",
+        name: 'vue2-pure',
+        display: 'vue2-pure',
         color: yellow,
       },
       {
-        name: "vue2-router-vuex",
-        display: "vue2-router-vuex",
+        name: 'vue2-router-vuex',
+        display: 'vue2-router-vuex',
         color: blue,
         modules: [
           {
-            name: "element-ui",
-            display: "element-ui",
+            name: 'element-ui',
+            display: 'element-ui',
             color: blue,
           },
           {
-            name: "windicss",
-            display: "windicss",
+            name: 'unocss',
+            display: 'unocss',
             color: magenta,
           },
         ],
@@ -96,28 +96,28 @@ const FRAMEWORKS = [
     ],
   },
   {
-    name: "node",
+    name: 'node',
     color: cyan,
     variants: [
       {
-        name: "node-pure",
-        display: "node-pure",
+        name: 'node-pure',
+        display: 'node-pure',
         color: yellow,
       },
       {
-        name: "node-mysql",
-        display: "node-mysql",
+        name: 'node-mysql',
+        display: 'node-mysql',
         color: lightRed,
       },
     ],
   },
   {
-    name: "wxapp",
+    name: 'wxapp',
     color: green,
     variants: [
       {
-        name: "wxapp-pure",
-        display: "微信小程序",
+        name: 'wxapp-pure',
+        display: '微信小程序',
         color: yellow,
       },
     ],
@@ -129,17 +129,17 @@ const TEMPLATES = FRAMEWORKS.map(
 ).reduce((a, b) => a.concat(b), []);
 
 const renameFiles = {
-  _gitignore: ".gitignore",
+  _gitignore: '.gitignore',
 };
 
 async function init() {
   let targetDir = formatTargetDir(argv._[0]);
   let template = argv.template || argv.t;
   // 默认显示项目名称
-  const defaultTargetDir = "vue-app";
+  const defaultTargetDir = 'vue-app';
   // 用户输入项目名称
   const getProjectName = () =>
-    targetDir === "." ? path.basename(path.resolve()) : targetDir;
+    targetDir === '.' ? path.basename(path.resolve()) : targetDir;
 
   let result = {};
   try {
@@ -148,11 +148,11 @@ async function init() {
         // 输入项目名称
         {
           // 类型限制
-          type: targetDir ? null : "text",
+          type: targetDir ? null : 'text',
           // 输入变量名称
-          name: "projectName",
+          name: 'projectName',
           // 输入回显
-          message: reset("Project name:"),
+          message: reset('Project name:'),
           // 未输入时，初始值
           initial: defaultTargetDir,
           onState: (state) => {
@@ -162,12 +162,12 @@ async function init() {
         //检测到已有目录，是否覆盖此目录
         {
           type: () =>
-            !fs.existsSync(targetDir) || isEmpty(targetDir) ? null : "confirm",
+            !fs.existsSync(targetDir) || isEmpty(targetDir) ? null : 'confirm',
 
-          name: "overwrite",
+          name: 'overwrite',
           message: () => {
-            return targetDir === "."
-              ? "Current dir"
+            return targetDir === '.'
+              ? 'Current dir'
               : `TargetDir directory "${targetDir}"` +
                   `is not empty. Remove existing files and continue?`;
           },
@@ -176,31 +176,31 @@ async function init() {
         {
           type: (_, { overwrite } = {}) => {
             if (overwrite === false) {
-              throw new Error(red("✖") + " Operation cancelled");
+              throw new Error(red('✖') + ' Operation cancelled');
             }
             return null;
           },
-          name: "overwriteChecker",
+          name: 'overwriteChecker',
         },
         //选择package
         {
-          type: () => (isValidPackageName(getProjectName()) ? null : "text"),
-          name: "packageName",
-          message: reset("Package name:"),
+          type: () => (isValidPackageName(getProjectName()) ? null : 'text'),
+          name: 'packageName',
+          message: reset('Package name:'),
           initial: () => toValidPackageName(getProjectName()),
           validate: (dir) =>
-            isValidPackageName(dir) || "Invalid package.json name",
+            isValidPackageName(dir) || 'Invalid package.json name',
         },
         // 选择框架
         {
-          type: template && TEMPLATES.includes(template) ? null : "select",
-          name: "framework",
+          type: template && TEMPLATES.includes(template) ? null : 'select',
+          name: 'framework',
           message:
-            typeof template === "string" && !TEMPLATES.includes(template)
+            typeof template === 'string' && !TEMPLATES.includes(template)
               ? reset(
                   `"${template}" is not a valid template,Please restart choose:`
                 )
-              : reset("Select a framework:"),
+              : reset('Select a framework:'),
           initial: 0,
           choices: FRAMEWORKS.map((framework) => {
             const frameworkColor = framework.color;
@@ -213,21 +213,21 @@ async function init() {
         // 选择类型，框架下的具体配置
         {
           type: (framework) => {
-            return framework && framework.variants ? "select" : null;
+            return framework && framework.variants ? 'select' : null;
           },
-          name: "variant",
+          name: 'variant',
           initial: 0,
           message: (framework) =>
-            framework.name == "vue2"
+            framework.name == 'vue2'
               ? reset(
                   `"${framework.name}" is not a valid template,Please restart choose:`
                 )
-              : reset("select a variant:"),
+              : reset('select a variant:'),
           choices: (framework) => {
             return framework.variants.map((variant) => {
               const variantColor = variant.color;
-              if (framework.name == "vue2") {
-                throw new Error(red("×") + " vue 2.x is not supported");
+              if (framework.name == 'vue2') {
+                throw new Error(red('×') + ' vue 2.x is not supported');
               }
               return {
                 title: variantColor(variant.name),
@@ -239,10 +239,10 @@ async function init() {
         {
           // 选择其他插件
           type: (variant) => {
-            return variant && variant.modules ? "multiselect" : null;
+            return variant && variant.modules ? 'multiselect' : null;
           },
-          name: "module",
-          message: reset("select modules:"),
+          name: 'module',
+          message: reset('select modules:'),
           initial: 0,
           choices: (variant) => {
             return variant.modules.map((module) => {
@@ -257,7 +257,7 @@ async function init() {
       ],
       {
         onCancel: () => {
-          throw new Error(red("×") + " Operation cancelled");
+          throw new Error(red('×') + ' Operation cancelled');
         },
       }
     );
@@ -282,14 +282,14 @@ async function init() {
   console.log(`\nScaffolding project in ${root}...`);
   const isModule = module && module.length > 0;
   const templateComName = isModule
-    ? `${template}-${module.join("-")}`
+    ? `${template}-${module.join('-')}`
     : template;
-  console.log("😉templateComName:", templateComName);
+  console.log('😉templateComName:', templateComName);
 
   // 模板文件夹
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
-    "..",
+    '..',
     `template-${templateComName}`
   );
 
@@ -305,11 +305,11 @@ async function init() {
   };
   // 读取模板文件夹内容（除去package.json）
   const files = fs.readdirSync(templateDir);
-  for (const file of files.filter((f) => f !== "package.json")) {
+  for (const file of files.filter((f) => f !== 'package.json')) {
     write(file);
   }
   const pkg = JSON.parse(
-    fs.readFileSync(path.join(templateDir, `package.json`), "utf-8")
+    fs.readFileSync(path.join(templateDir, `package.json`), 'utf-8')
   );
 
   pkg.name = packageName || getProjectName();
@@ -320,25 +320,25 @@ async function init() {
   //     pkg.devDependencies[item.name] = item.version;
   //   }
   // });
-  write("package.json", JSON.stringify(pkg, null, 2));
+  write('package.json', JSON.stringify(pkg, null, 2));
   const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
-  const pkgManager = pkgInfo ? pkgInfo.name : "npm";
+  const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
 
-  console.log("\nDone. Now run:\n");
+  console.log('\nDone. Now run:\n');
   if (root != cwd) {
     console.log(`  cd ${red(path.relative(cwd, root))}`);
   }
   switch (pkgManager) {
-    case "yarn":
-      console.log("  yarn");
-      console.log("  yarn dev");
+    case 'yarn':
+      console.log('  yarn');
+      console.log('  yarn dev');
       break;
     default:
       console.log(`  ${pkgManager} install`);
       console.log(`  ${pkgManager} run dev`);
       break;
   }
-  console.log(`   ${green("√")}` + " Done");
+  console.log(`   ${green('√')}` + ' Done');
 }
 
 init().catch((e) => {
@@ -348,7 +348,7 @@ init().catch((e) => {
  * @param {string | undefined} targetDir
  */
 function formatTargetDir(targetDir) {
-  return targetDir?.trim().replace(/\/+$/g, "");
+  return targetDir?.trim().replace(/\/+$/g, '');
 }
 
 /**
@@ -356,7 +356,7 @@ function formatTargetDir(targetDir) {
  */
 function isEmpty(path) {
   const files = fs.readdirSync(path);
-  return files.length === 0 || (files.length === 1 && files[0] === ".git");
+  return files.length === 0 || (files.length === 1 && files[0] === '.git');
 }
 /**
  * @param {string} projectName
@@ -374,9 +374,9 @@ function toValidPackageName(projectName) {
   return projectName
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/^[._]/, "")
-    .replace(/[^a-z0-9-~]+/g, "-");
+    .replace(/\s+/g, '-')
+    .replace(/^[._]/, '')
+    .replace(/[^a-z0-9-~]+/g, '-');
 }
 
 /**
@@ -418,8 +418,8 @@ function copyDir(srcDir, destDir) {
  */
 function pkgFromUserAgent(userAgent) {
   if (!userAgent) return undefined;
-  const pkgSpec = userAgent.split(" ")[0];
-  const pkgSpecArr = pkgSpec.split("/");
+  const pkgSpec = userAgent.split(' ')[0];
+  const pkgSpecArr = pkgSpec.split('/');
   return {
     name: pkgSpecArr[0],
     version: pkgSpecArr[1],
