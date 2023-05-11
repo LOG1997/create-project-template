@@ -1,6 +1,6 @@
 {
   "name": "create-log-cli",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "private": false,
   "description": "vue3 react",
   "main": "index.js",
@@ -32,8 +32,8 @@
   "license": "MIT",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "kolorist": "^1.6.0",
-    "minimist": "^1.2.7",
+    "kolorist": "^1.8.0",
+    "minimist": "^1.2.8",
     "path": "^0.12.7",
     "prompts": "^2.4.2"
   }

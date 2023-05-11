@@ -68,6 +68,28 @@ const FRAMEWORKS = [
     ],
   },
   {
+    name: 'nextjs',
+    color: blue,
+    variants: [
+      {
+        name: 'nextjs',
+        display: 'nextjs',
+        color: green,
+      },
+    ],
+  },
+  {
+    name: 'nuxtjs',
+    color: magenta,
+    variants: [
+      {
+        name: 'nuxtjs',
+        display: 'nuxtjs',
+        color: magenta,
+      },
+    ],
+  },
+  {
     name: 'vue2',
     color: blue,
     variants: [
