@@ -32,6 +32,7 @@ export default function index() {
                     <div className='logo-vite h-24 cursor-pointer'>
                         <SvgIcon name='vite' iconStyle={{ width: 100, height: 100 }}></SvgIcon>
                     </div>
+                    <div className="i-logos-flyjs w-24 h-24"></div>
                 </div>
        
             </div>

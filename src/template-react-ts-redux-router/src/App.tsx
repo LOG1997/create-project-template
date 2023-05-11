@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './reduce';
+import {store} from './store';
 
 import { RouterProvider } from 'react-router-dom';
 import { AliveScope } from 'react-activation';

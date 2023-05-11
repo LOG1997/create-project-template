@@ -6,7 +6,7 @@ import { IUserInfo } from '@/types/user';
 export const asyncGetUserinfo = createAsyncThunk(
   'userSlice/asyncGetUserinfo',
   async () => {
-    const { data }: { data: IUserInfo } = await getUserInfo({});
+    const { data }: { data: IUserInfo } = await getUserInfo({}) as any;
 
     return data;
   }
