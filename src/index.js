@@ -90,6 +90,17 @@ const FRAMEWORKS = [
     ],
   },
   {
+    name: 'tauri',
+    color: yellow,
+    variants: [
+      {
+        name: 'tauri-react',
+        display: 'tauri-react',
+        color: yellow,
+      },
+    ],
+  },
+  {
     name: 'vue2',
     color: blue,
     variants: [
