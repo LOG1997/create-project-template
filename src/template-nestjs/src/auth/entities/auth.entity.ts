@@ -2,8 +2,9 @@ import { User } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UsrEntity implements User {
-    constructor(partial: Partial<UsrEntity>) { Object.assign(this, partial); }
+export class Auth implements User {
+
+    constructor(partial: Partial<Auth>) { Object.assign(this, partial); }
     @ApiProperty()
     id: number;
     @ApiProperty()

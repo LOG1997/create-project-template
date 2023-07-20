@@ -8,13 +8,13 @@ export class HttpExceptionFilter<T extends HttpException> implements ExceptionFi
         const response = ctx.getResponse(); // 获取响应对象
         const request = ctx.getRequest(); // 获取请求对象
         const status = exception instanceof HttpException ? exception.getStatus() : 500; // 获取状态码
+        const exceptionErr = exception instanceof HttpException ? exception : new HttpException('未知错误', status); // 获取错误信息
+        let message = exceptionErr.message // 获取错误信息
 
-        let message = exception.message // 获取错误信息
+        console.log('😐exceptionErr.getResponse():', exceptionErr)
+        if (typeof exceptionErr.getResponse() === 'object' && exceptionErr.getResponse().hasOwnProperty('message')) {
 
-        console.log('😐exception.getResponse():', exception)
-        if (typeof exception.getResponse() === 'object' && exception.getResponse().hasOwnProperty('message')) {
-
-            message = '参数格式错误'
+            message = exceptionErr.getResponse()['message']
         }
         // 区分开发环境，生产环境
         if (isProd) {

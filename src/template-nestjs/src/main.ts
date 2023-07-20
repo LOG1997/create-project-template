@@ -14,7 +14,7 @@ async function bootstrap() {
         .setVersion(packageConfig.version)
         .addBearerAuth()
         .addServer('/api')
-        .build();
+        .build()
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/swagger', app, document);
     app.setGlobalPrefix('api');
@@ -22,7 +22,7 @@ async function bootstrap() {
     app.useGlobalFilters(new HttpExceptionFilter()); //使用全局过滤器
     app.useGlobalInterceptors(new TransformInterceptor()); //使用全局拦截器
     app.useGlobalPipes(new ValidationPipe()); //使用全局管道
-    // app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+    app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
     await app.listen(3000).then(() => {
         console.log('the swagger doc:' + 'http://localhost:3000/api/swagger')
         console.log('you can get:' + 'http://localhost:3000/api')

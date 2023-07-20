@@ -3,7 +3,8 @@ import { UsrService } from './usr.service';
 import { UsrController } from './usr.controller';
 
 @Module({
-  controllers: [UsrController],
-  providers: [UsrService]
+    controllers: [UsrController],
+    providers: [UsrService],
+    exports: [UsrService]
 })
-export class UsrModule {}
+export class UsrModule { }

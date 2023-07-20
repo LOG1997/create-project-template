@@ -40,6 +40,57 @@ async function main() {
             updatedAt: new Date(),
         }
     })
+
+    const art1 = await prisma.artical.upsert({
+        where: {
+            id: 1
+        },
+        update: {},
+        create: {
+            id: 1,
+            title: '文章1',
+            content: '文章1内容',
+            authorId: 1,
+            published: true,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        }
+
+    })
+
+    const art2 = await prisma.artical.upsert({
+        where: {
+            id: 3
+        },
+        update: {},
+        create: {
+            id: 2,
+            title: '文章2',
+            content: '文章2内容',
+            authorId: 1,
+            published: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        }
+
+    })
+
+    const art3 = await prisma.artical.upsert({
+        where: {
+            id: 3
+        },
+        update: {},
+        create: {
+            id: 3,
+            title: '文章3',
+            content: '文章3内容',
+            authorId: 2,
+            published: true,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        }
+
+    })
 }
 // excute
 main()
