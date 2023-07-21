@@ -10,9 +10,6 @@
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 </p>
 
-## 描述
-
-nest启动模板，集成prisma、swagger
 
 ## 安装初始化
 
@@ -50,7 +47,9 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
+## 描述
 
+nest启动模板，集成prisma、swagger
 
 ## License
 

@@ -16,13 +16,10 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     }
 
     async validate(user: string, password: string): Promise<Auth> {
-        console.log('😉password:', password)
-        console.log('😌user:', user)
         const isEmail = user.indexOf('@') > -1;
         const userInfo = await this.prisma.user.findUnique({
             where: isEmail ? { email: user } : { username: user },
         });
-        console.log('😓userInfo:', userInfo)
         if (!userInfo) {
             throw new HttpException('用户名不正确!', 400);
         }

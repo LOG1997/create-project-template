@@ -6,8 +6,14 @@ import * as packageConfig from '../package.json';
 import { HttpExceptionFilter } from './core/filter/http-exception/http-exception.filter';
 import { TransformInterceptor } from './core/interceptor/transform/transform.interceptor';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { LoggerService } from './shared/common/logger/logger.service';
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, {
+        logger: false
+    });
+    //全局的logger
+    const logger = app.get(LoggerService);
+    app.useLogger(logger);
     const config = new DocumentBuilder()
         .setTitle(packageConfig.name)
         .setDescription(packageConfig.description)
@@ -19,8 +25,8 @@ async function bootstrap() {
     SwaggerModule.setup('/api/swagger', app, document);
     app.setGlobalPrefix('api');
 
-    app.useGlobalFilters(new HttpExceptionFilter()); //使用全局过滤器
-    app.useGlobalInterceptors(new TransformInterceptor()); //使用全局拦截器
+    app.useGlobalFilters(new HttpExceptionFilter(logger)); //使用全局过滤器
+    app.useGlobalInterceptors(new TransformInterceptor(logger)); //使用全局拦截器
     app.useGlobalPipes(new ValidationPipe()); //使用全局管道
     app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
     await app.listen(3000).then(() => {

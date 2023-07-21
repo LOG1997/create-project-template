@@ -6,11 +6,16 @@ import { HttpException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hashSync } from 'bcrypt';
 import { Auth } from './entities/auth.entity';
+import { LoggerService } from 'src/shared/common/logger/logger.service';
 @Injectable()
 export class AuthService {
     constructor(protected readonly prisma: PrismaService,
-        public jwtService: JwtService
-    ) { }
+        private readonly jwtService: JwtService,
+        private readonly logger: LoggerService
+    ) {
+        this.logger.setContext(AuthService.name);
+    }
+    // 注册
     async create(createAuthDto: CreateAuthDto) {
         const existEmail = await this.prisma.user.findUnique({ where: { email: createAuthDto.email } });
         const existUsername = await this.prisma.user.findUnique({ where: { username: createAuthDto.username } });
@@ -23,6 +28,7 @@ export class AuthService {
         createAuthDto.password = hashSync(createAuthDto.password, 10);
         return this.prisma.user.create({ data: createAuthDto })
     }
+    // 登录
     async login(params: any) {
         const { user, password } = params
         // 验证user是否邮箱
@@ -43,23 +49,37 @@ export class AuthService {
         })
         return { userInfo, token }
     }
+    // 生成token
     createToken(user: Partial<Auth>) {
         return this.jwtService.sign(user);
     }
-
-    findAll() {
-        return this.prisma.user.findMany()
+    // 查找所有用户
+    findAll({ page = 1, pageSize = 10 }) {
+        return this.prisma.user.findMany({
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+        })
     }
 
-    findOne(username: string) {
-        return this.prisma.user.findUnique({ where: { username } })
+    findOne(id: number) {
+        return this.prisma.user.findUnique({ where: { id }, select: { username: true, email: true, role: true, id: true } })
     }
-
+    async count(params: any) {
+        return this.prisma.user.count({ where: params })
+    }
     update(id: number, updateAuthDto: UpdateAuthDto) {
-        return `This action updates a #${id} auth`;
+        const user = this.prisma.user.findUnique({ where: { id } })
+        if (!user) {
+            throw new HttpException('用户不存在', 400)
+        }
+        return this.prisma.user.update({ where: { id }, data: updateAuthDto })
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} auth`;
+    async remove(id: number) {
+        const exitUser = await this.prisma.user.findUnique({ where: { id } })
+        if (!exitUser) {
+            throw new HttpException('用户不存在', 400)
+        }
+        return this.prisma.user.delete({ where: { id } })
     }
 }
