@@ -9,8 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './global/guard/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import envConfig from '../config/env';
-import { LoggerModule } from './shared/common/logger/logger.module';
-
+import { RedisModule } from 'src/shared/common/redis/redis.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -20,15 +19,13 @@ import { LoggerModule } from './shared/common/logger/logger.module';
         PrismaModule,
         ArticalModule,
         AuthModule,
-        // LoggerModule
-
+        RedisModule,
     ],
     controllers: [AppController],
     providers: [AppService, {
         provide: APP_GUARD,
         useClass: JwtAuthGuard,
     }
-
     ],
 })
 export class AppModule { }

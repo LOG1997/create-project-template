@@ -7,19 +7,21 @@ import { ConfigService } from '@nestjs/config'
 import { JwtStrategy } from './jwt.strategy';
 import { LoggerModule } from 'src/shared/common/logger/logger.module';
 
+import { RedisModule } from 'src/shared/common/redis/redis.module';
 const jwtModule = JwtModule.registerAsync({
     inject: [ConfigService],
     useFactory: async (configService: ConfigService) => {
         const jet_secret = configService.get('JWT_SECRET', '0819')
         return {
             secret: jet_secret,
-            signOptions: { expiresIn: '4h' },
+            // redis缓存token，过期时间由redis控制
+            // signOptions: { expiresIn: '4h' },
         };
     },
 });
 
 @Module({
-    imports: [PassportModule, jwtModule, LoggerModule],
+    imports: [PassportModule, jwtModule, LoggerModule, RedisModule],
     controllers: [AuthController],
     providers: [AuthService, JwtStrategy],
     exports: [jwtModule, AuthService]

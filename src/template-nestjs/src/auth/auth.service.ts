@@ -7,11 +7,14 @@ import { JwtService } from '@nestjs/jwt';
 import { compareSync, hashSync } from 'bcrypt';
 import { Auth } from './entities/auth.entity';
 import { LoggerService } from 'src/shared/common/logger/logger.service';
+import { RedisService } from 'src/shared/common/redis/redis.service';
+
 @Injectable()
 export class AuthService {
     constructor(protected readonly prisma: PrismaService,
         private readonly jwtService: JwtService,
-        private readonly logger: LoggerService
+        private readonly logger: LoggerService,
+        private readonly redisService: RedisService,
     ) {
         this.logger.setContext(AuthService.name);
     }
@@ -47,7 +50,18 @@ export class AuthService {
             username: userInfo.username,
             email: userInfo.email,
         })
+        // 保存token
+        await this.redisService.set(`${userInfo.id} & ${userInfo.username}`, token, 'EX', 2 * 60 * 60)
         return { userInfo, token }
+    }
+    // 退出登录
+    async logout(id: number) {
+        const userInfo = await this.prisma.user.findUnique({ where: { id } })
+        if (!userInfo) {
+            throw new HttpException('用户不存在', 400)
+        }
+        await this.redisService.set(`${userInfo.id} & ${userInfo.username}`, '', 'EX', 0)
+        return { message: '退出登录成功' }
     }
     // 生成token
     createToken(user: Partial<Auth>) {

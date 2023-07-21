@@ -35,12 +35,21 @@ export class AuthController {
         return { data, token }
     }
 
+    @Post('logout')
+    @ApiOperation({ summary: '退出登录' })
+    @UseInterceptors(ClassSerializerInterceptor)
+    @ApiOkResponse({ type: Auth })
+    async logout(@AuthUser() user: any) {
+        const delToken = await this.authService.logout(user.id);
+        return delToken
+    }
 
     @Get()
     @ApiOperation({ summary: '获取所有用户' })
     @UseInterceptors(ClassSerializerInterceptor)
     @ApiOkResponse({ type: [Auth] })
     async findAll(@Body() params: { page: number, pageSize: number }, @AuthUser() user: any,) {
+        console.log('😅user:', user)
         if (user.role !== 'ADMIN') {
             throw new HttpException('没有权限', 403)
         }
@@ -65,6 +74,7 @@ export class AuthController {
     @ApiOperation({ summary: '更新用户' })
     @ApiOkResponse({ type: Auth })
     async update(@Param('id') id: string, @AuthUser() user: any, @Body() updateAuthDto: UpdateAuthDto, @Req() req: Request) {
+        console.log('😌user:', user)
         if (user.id !== +id) {
             throw new HttpException('没有权限', 403)
         }
@@ -83,4 +93,6 @@ export class AuthController {
         const delUser = await this.authService.remove(+id);
         return new Auth(delUser)
     }
+
+
 }
