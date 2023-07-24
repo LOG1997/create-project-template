@@ -6,6 +6,8 @@ generator client {
     previewFeatures = ["selectRelationCount"]
 }
 
+// prisma指定环境变量
+
 datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")

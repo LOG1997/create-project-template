@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArticalDto } from './dto/create-artical.dto';
 import { UpdateArticalDto } from './dto/update-artical.dto';
-import { PrismaService } from '../../shared'
+// import { PrismaService } from '../../shared'
+import { PrismaService } from 'nestjs-prisma';
 @Injectable()
 export class ArticalService {
     constructor(private readonly prisma: PrismaService) { }

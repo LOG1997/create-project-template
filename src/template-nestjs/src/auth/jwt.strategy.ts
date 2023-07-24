@@ -22,17 +22,19 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     async validate(req, user: any) {
         const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
         const redisToken = await this.redisService.get(`${user.id} & ${user.username}`)
-        if (!redisToken) {
-            throw new HttpException('token过期', 400)
+        // NOTE:redis是否使用
+        const isRedis = this.configService.get('REDIS_HOST')
+        if (isRedis && !redisToken) {
+            throw new HttpException('token不正确', 200)
         }
-        if (redisToken !== token) {
-            throw new HttpException('token不正确', 400)
+        if (isRedis && redisToken !== token) {
+            throw new HttpException('token不正确', 200)
         }
         const exitsUser = await this.authService.findOne(user.id);
         if (!exitsUser) {
             throw new HttpException('用户不存在', 200)
         }
-        this.redisService.set(`${user.id} & ${user.username}`, token, 'EX', 2 * 60 * 60)
+        isRedis ? this.redisService.set(`${user.id} & ${user.username}`, token, 'EX', 2 * 60 * 60) : null
         return new Auth(exitsUser)
     }
 

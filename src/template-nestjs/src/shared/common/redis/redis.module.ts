@@ -8,7 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         {
             provide: 'REDIS_CLIENT',
             useFactory: (configService: ConfigService) => {
-                console.log('😔configService:', configService)
+                console.log('😔configService:', configService.get('REDIS_PORT'))
                 console.log(configService.get('REDIS_HOST', 'localhost'))
                 // console.log(configService.get('REDIS_PORT', 6379))
                 return new Redis({

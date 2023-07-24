@@ -2,7 +2,8 @@ import { compareSync } from 'bcryptjs';
 import { PassportStrategy } from '@nestjs/passport';
 import { IStrategyOptions, Strategy } from 'passport-local';
 import { Auth } from './entities/auth.entity';
-import { PrismaService } from '../shared';
+// import { PrismaService } from '../shared';
+import { PrismaService } from 'nestjs-prisma';
 import { HttpException } from '@nestjs/common';
 
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {

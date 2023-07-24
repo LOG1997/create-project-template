@@ -2,18 +2,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const isProd = process.env.NODE_ENV === 'production';
+const env = process.env.NODE_ENV;
+const envPathObj =
+{
+    'dev': '.env.dev',
+    'prod': '.env.prod',
+    'test': '.env.test'
+}
 
 function parseEnv() {
-    console.log('😆isProd:', isProd)
-    const localEnv = path.resolve('.env');
-    const prodEnv = path.resolve('.env.prod');
+    const envFilePath = path.resolve(envPathObj[env]);
 
-    if (!fs.existsSync(localEnv) && !fs.existsSync(prodEnv)) {
+    if (!fs.existsSync(envFilePath)) {
         throw new Error('缺少环境配置文件');
     }
 
-    const filePath = isProd && fs.existsSync(prodEnv) ? prodEnv : localEnv;
-    return { envPath: filePath };
+    return { envPath: envFilePath };
 }
 export default parseEnv();
