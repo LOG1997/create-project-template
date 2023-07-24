@@ -7,6 +7,7 @@ import { HttpExceptionFilter } from './core/filter/http-exception/http-exception
 import { TransformInterceptor } from './core/interceptor/transform/transform.interceptor';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { LoggerService } from './shared/common/logger/logger.service';
+import { ajaxMiddleware } from './middleware/ajax.middleware';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
         logger: false
@@ -24,7 +25,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/swagger', app, document);
     app.setGlobalPrefix('api');
-
+    app.use(ajaxMiddleware); // 使用中间件
     app.useGlobalFilters(new HttpExceptionFilter(logger)); //使用全局过滤器
     app.useGlobalInterceptors(new TransformInterceptor(logger)); //使用全局拦截器
     app.useGlobalPipes(new ValidationPipe()); //使用全局管道
