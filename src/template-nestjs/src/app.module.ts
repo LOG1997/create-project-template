@@ -11,6 +11,8 @@ import { JwtAuthGuard } from './global/guard/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import envConfig from '../config/env';
 import { RedisModule } from 'src/shared/common/redis/redis.module';
+import { UploadfileModule } from './shared/common/uploadfile/uploadfile.module'
+
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -34,28 +36,11 @@ import { RedisModule } from 'src/shared/common/redis/redis.module';
             },
             inject: [ConfigService],
         }),
-        // PrismaModule.forRootAsync({
-        //     isGlobal: true,
-        //     useFactory: async (configService: ConfigService) => {
-        //         // 查看是否符合预期
-        //         console.log(configService.get('DATABASE_URL'));
-        //         return {
-        //             prismaOptions: {
-        //                 datasources: {
-        //                     db: {
-        //                         url: configService.get('DATABASE_URL'),
-        //                         previewFeatures: ["selectRelationCount"]
-        //                     },
-        //                 },
-        //             },
-        //             explicitConnect: false,
-        //         };
-        //     },
-        //     inject: [ConfigService],
-        // }),
+
         ArticalModule,
         AuthModule,
         RedisModule,
+        UploadfileModule,
     ],
     controllers: [AppController],
     providers: [AppService, {

@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
         // NOTE:redis是否使用
         const isRedis = this.configService.get('REDIS_HOST')
         if (isRedis && !redisToken) {
-            throw new HttpException('token不正确', 200)
+            throw new HttpException('token不正确！', 200)
         }
         if (isRedis && redisToken !== token) {
             throw new HttpException('token不正确', 200)

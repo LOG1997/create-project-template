@@ -1,25 +1,26 @@
-
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Artical {
+export class Uploadfile {
+
     @ApiProperty()
     readonly id: number;
 
     @ApiProperty()
-    readonly title: string;
+    readonly filename: string;
 
     @ApiProperty()
-    readonly content: string;
+    readonly size: string;
 
     @ApiProperty()
-    readonly authorId: number;
+    readonly type: string;
 
     @ApiProperty()
-    readonly published: boolean;
+    readonly hash: string;
 
     @ApiProperty()
     readonly createdAt: Date;
 
     @ApiProperty()
     readonly updatedAt: Date;
+
 }

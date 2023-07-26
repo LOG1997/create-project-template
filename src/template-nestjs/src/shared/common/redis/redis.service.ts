@@ -14,6 +14,18 @@ export class RedisService {
             await this.redisClient.set(key, value);
         }
     }
+    async hget(key: string, field: string): Promise<string | null> {
+        return await this.redisClient.hget(key, field);
+    }
+    async hgetAll(key: string): Promise<{ [key: string]: string }> {
+        return await this.redisClient.hgetall(key);
+    }
+    async hsetnx(key: string, field: string, value: number | string): Promise<void> {
+        await this.redisClient.hsetnx(key, field, value);
+    }
+    async pexpire(key: string, milliseconds: number): Promise<void> {
+        await this.redisClient.pexpire(key, milliseconds);
+    }
     async del(key: string): Promise<void> {
         await this.redisClient.del(key);
     }
