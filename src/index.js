@@ -68,6 +68,17 @@ const FRAMEWORKS = [
     ],
   },
   {
+    name:'nestjs',
+    color: yellow,
+    variants: [
+        {
+            name: 'nestjs',
+            display: 'Nestjs',
+            color: yellow,
+        }
+    ]
+  },
+  {
     name: 'nextjs',
     color: blue,
     variants: [
