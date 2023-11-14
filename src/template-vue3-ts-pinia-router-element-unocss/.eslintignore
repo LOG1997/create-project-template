@@ -1,7 +1,8 @@
 .md
 node_modules
 public
-package*.json
+package.json
+*.yaml
 .gitignore
 .eslintrc*
 .babelrc

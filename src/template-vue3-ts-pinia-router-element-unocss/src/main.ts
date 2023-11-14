@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import './style.scss';
 import 'bootstrap';
-import 'virtual:uno.css'
+import 'uno.css'
 
 import App from './App.vue';
 

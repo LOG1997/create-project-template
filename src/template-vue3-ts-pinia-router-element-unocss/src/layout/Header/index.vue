@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { navList } from './config';
-import SwitchTheme from './components/SwitchTheme/index.vue';
 const skip = (url: string) => {
   window.open(url, '_self');
 };
@@ -31,7 +30,7 @@ const skip = (url: string) => {
           class="nav-list collapse navbar-collapse"
           id="navbarSupportedContent"
         >
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="mb-2 navbar-nav me-auto mb-lg-0">
             <li
               class="nav-item"
               v-for="item in navList.data"
@@ -46,9 +45,6 @@ const skip = (url: string) => {
         </div>
       </div>
     </nav>
-    <div class="header-info">
-      <SwitchTheme></SwitchTheme>
-    </div>
   </div>
 </template>
 

@@ -6,11 +6,12 @@ const skip = (url: string) => {
 </script>
 <template>
   <div class="footer-container">
-    <ul>
+    <ul class="flex justify-center">
       <li
         v-for="item in footerList.data"
         :key="item.id"
         @click="skip(item.url)"
+        class="flex gap-1 cursor-pointer"
       >
         <svg-icon :name="item.icon"></svg-icon>
         <p>{{ item.name }}</p>
@@ -20,26 +21,5 @@ const skip = (url: string) => {
 </template>
 
 <style scoped lang="scss">
-.footer-container {
-  height: 80px;
-  ul {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    margin: 0px;
-    li {
-      width: 100px;
-      height: 24px;
-      line-height: 24px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      span {
-        line-height: 24px;
-        height: 24px;
-      }
-      //   vertical-align: middle;
-    }
-  }
-}
+
 </style>
