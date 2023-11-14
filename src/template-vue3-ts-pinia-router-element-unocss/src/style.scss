@@ -1,41 +1,17 @@
 @import "../src/style/theme/index.scss";
 @import "~bootstrap/scss/bootstrap.scss";
-body {
+body,
+html {
     margin: 0;
+    padding: 0;
     overflow-y: overlay;
-}
-body {
-    @include themeify {
-        background-color: themed("theme-bg-color");
-        color: themed("font-color");
-    }
+    overflow: hidden;
 }
 
-button {
-    @include themeChildify {
-        background-color: themed("header-bg-color");
-        color: themed("font-color");
-    }
-}
-.navbar-nav .show > .nav-link,
-.navbar-nav .nav-link.active {
-    @include themeChildify {
-        color: themed("font-color");
-    }
+ul {
+    list-style: none;
 }
 
-.blue_box {
-    background-color: getThemeColor("blue_theme");
-}
-.purple_box {
-    background-color: getThemeColor("purple_theme");
-}
-.dark_box {
-    background-color: getThemeColor("dark_theme");
-}
-.default_box {
-    background-color: getThemeColor("default");
-}
 /* 优化滚动条 */
 ::-webkit-scrollbar {
     /*滚动条整体样式*/

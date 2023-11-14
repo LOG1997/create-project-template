@@ -4,7 +4,6 @@ import HelloWorld from '../../components/HelloWorld.vue';
 import useStore from '@/store/index';
 import { useRouter } from 'vue-router';
 import { IUser } from '@/types/user';
-import Button from '@/components/Button/index.vue';
 import { ElNotification } from 'element-plus';
 
 import { getData } from '@/api/main';
@@ -41,7 +40,7 @@ const skip = (url: string) => {
 
 <template>
   <div class="flex justify-center">
-    <!-- <svg-icon :name="'menu'" class="svgMenu cursor-pointer"></svg-icon> -->
+    <!-- <svg-icon :name="'menu'" class="cursor-pointer svgMenu"></svg-icon> -->
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
@@ -58,10 +57,9 @@ const skip = (url: string) => {
     <button class="h-12 px-3 rounded-lg" @click="featchData">fetch</button>
   </div>
   <HelloWorld
-    class="mx-auto text-center flex flex-column items-center"
+    class="flex items-center mx-auto text-center flex-column"
     msg="Vite + Vue"
   />
-  <Button type="primary">Button</Button>
 </template>
 
 <style scoped lang="scss">
